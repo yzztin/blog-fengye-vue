@@ -7,10 +7,10 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: DefaultLayout,
-      children: [
+      component: DefaultLayout,  // 父级路由组件，在 DefaultLayout.vue 中使用 router-view 显示子路由的内容
+      children: [   // 子路由
         {
-          path: '',
+          path: '',  // 空路径表示与父级路径相同
           name: 'home',
           component: Home
         },

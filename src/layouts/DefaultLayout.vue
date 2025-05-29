@@ -17,7 +17,8 @@
     </header>
 
     <main class="flex-grow container py-8">
-      <slot></slot>
+      <!-- 使用 router-view 显示子路由 Home 的内容 -->
+      <router-view></router-view>
     </main>
 
     <footer class="bg-white dark:bg-gray-800 shadow mt-8">

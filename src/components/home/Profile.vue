@@ -1,50 +1,67 @@
 <template>
+  <!-- home 页面个人信息 -->
   <div class="index-info-container pt-6 text-[var(--c-70)]">
     <div class="flex flex-col items-center justify-center">
-      <img v-if="showProfileImage" 
-           :src="portrait" 
-           :alt="title"
-           class="rounded-3xl w-36 sm:w-48 hover:scale-[1.04] transition-transform" />
-      
-      <h1 class="site-title text-center text-5xl bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent pb-4 pt-6 font-black">
+      <!-- 
+      这个 img 标签用来控制首页头像图片
+      rounded-3xl 设置图片的圆角为 3xl，即 48px 的圆角
+      w-36 设置图片的宽度为 36，单位是 Tailwind CSS 的默认单位
+      sm:w-48 使用 Tailwind CSS 的响应式前缀 sm:，表示在屏幕宽度大于 sm 断点（默认是 640px）时，图片的宽度会变为 48
+      hover:scale-[1.04] 这是 Tailwind CSS 的伪类 hover 和 scale 的组合。当鼠标悬停在图片上时，图片的缩放比例会变为 1.04
+      transition-transform 用于为图片的变换（如缩放）添加过渡效果，确保图片的放大效果是平滑的，而不是瞬间完成的。
+      -->
+      <img v-if="showProfileImage" :src="portrait" :alt="title"
+        class="rounded-3xl w-36 sm:w-48 hover:scale-[1.04] transition-transform" />
+
+      <!-- 标题 -->
+      <h1
+        class="site-title text-center text-5xl bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent pb-4 pt-6 font-black">
         {{ title }}
       </h1>
-      
-      <p class="text-3xl font-extrabold text-center bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent text-[var(--c-80)]">
+
+      <!-- 副标题 -->
+      <p
+        class="text-3xl font-extrabold text-center bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent text-[var(--c-80)]">
         {{ subtitle }}
       </p>
-      
+
+      <!-- 位置和简历 -->
       <div class="flex flex-wrap items-center justify-center gap-4 my-6 font-bold text-lg">
         <div class="flex flex-row items-center gap-1">
           <iconify-icon width="24" icon="mingcute:building-1-fill"></iconify-icon>
           <p>{{ location }}</p>
         </div>
         <div class="flex flex-row items-center gap-1 group">
-          <iconify-icon class="transition-transform group-hover:scale-125" width="24" icon="mingcute:idcard-fill"></iconify-icon>
+          <iconify-icon class="transition-transform group-hover:scale-125" width="24"
+            icon="mingcute:idcard-fill"></iconify-icon>
           <a :href="cvPath" class="group-hover:underline">
             Resume ({{ cvLastUpdateDate }})
           </a>
         </div>
       </div>
-      
+
+      <!-- 描述 -->
       <div class="description-container max-w-prose mx-auto grid grid-cols-1">
         <div class="text-left p-8">
-          <p v-html="description"></p>
+          <p v-html="descriptionClean"></p>
         </div>
       </div>
+
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import portraitImage from '@/assets/images/portrait.jpg'
 
 const showProfileImage = ref(true)
-const portrait = ref('/path/to/portrait.jpg')
-const title = ref('网站标题')
-const subtitle = ref('网站副标题')
-const location = ref('你的位置')
-const cvPath = ref('/path/to/cv.pdf')
-const cvLastUpdateDate = ref('2024-03-29')
-const description = ref('网站描述')
+const portrait = ref(portraitImage)
+const title = ref("Yzz's Blog")
+const subtitle = ref('')
+const location = ref('Beijing, China')
+const cvPath = ref('')
+const cvLastUpdateDate = ref('2025-04-07')
+const description = ref('A blog for note, thinking and life.')
+const descriptionClean = description.value.replace(/(?:\r\n|\r|\n)/g, '<br>')
 </script>
