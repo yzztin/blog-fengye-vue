@@ -10,5 +10,8 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src')  // resolve() 表示合并目录得到一个绝对路径
     }
+    // alias: {
+    //   '@': '/src'
+    // }
   }
 })
