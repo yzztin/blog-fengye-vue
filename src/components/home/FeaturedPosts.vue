@@ -1,9 +1,14 @@
 <template>
   <div class="flex flex-col items-center justify-center">
+
+    <!--
+      --c-50 是自定义的 css 变量，在 src/style/main.css 中定义，var(--c-50) 表示取变量的值
+      text-[] 是 Tailwind CSS 的动态类名，用于设置文本颜色
+    -->
     <div class="flex flex-row items-center gap-2 text-[var(--c-50)]">
+
       <!-- 这里是通过 cdn 使用 iconify -->
       <!-- <span class="iconify" data-icon="mingcute:star-fill" style="font-size: 28px;"></span> -->
-      <iconify-icon width="28" icon="mingcute:star-fill"></iconify-icon>
 
       <!-- 这是使用 Icon 组件 -->
       <Icon icon="mingcute:star-fill" width="28" />

@@ -3,6 +3,37 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* 定义颜色变量 */
+    --c-transparent: transparent;
+    --c-theme-1: #bed5f9;
+    --c-theme: #4f90e6;
+    --c-theme-2: #3058b6;
+    /* 灰色逐渐 */
+    --c-0: #ffffff;
+    --c-10: #f6f8fa;
+    --c-20: #f3f4f6;
+    --c-25: #e5e7eb;
+    --c-30: #e5e7eb;
+    --c-40: #d1d5db;
+    --c-50: #9ca3af;
+    --c-60: #6b7280;
+    --c-70: #4b5563;
+    --c-80: #374151;
+    --c-90: #1f2937;
+    --c-100: #111827;
+    --c-text: #444444;
+    --c-bg-code: #f6f8fa;
+    --c-code-line-number: #bbb;
+    --c-scrollbar: #d9d9d9;
+    --c-scrollbar-hover: #bbbbbb;
+    --c-border: #d1d7dd;
+    --c-sep: #e1e4e8;  /* 分割线颜色 */
+    --c-sep-2: #d1d4d8;
+    --c-code-language: #9ca3af;
+    --h-header: 48px;
+  }
+
   body {
     @apply bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100;
   }
