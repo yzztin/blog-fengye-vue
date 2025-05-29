@@ -4,13 +4,13 @@
       <nav class="container py-4">
         <div class="flex items-center justify-between">
           <router-link to="/" class="text-xl font-bold text-primary">
-            Fengye
+            Yzztin
           </router-link>
           <div class="space-x-4">
-            <router-link to="/" class="hover:text-primary">首页</router-link>
-            <router-link to="/archives" class="hover:text-primary">归档</router-link>
-            <router-link to="/categories" class="hover:text-primary">分类</router-link>
-            <router-link to="/tags" class="hover:text-primary">标签</router-link>
+            <router-link to="/" class="hover:text-primary">Home</router-link>
+            <router-link to="/archives" class="hover:text-primary">Archives</router-link>
+            <router-link to="/categories" class="hover:text-primary">Categories</router-link>
+            <router-link to="/tags" class="hover:text-primary">Tags</router-link>
           </div>
         </div>
       </nav>
