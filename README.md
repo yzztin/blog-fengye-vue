@@ -18,3 +18,8 @@
   ├── composables/      # 组合式函数
   └── router/           # 路由配置
   ```
+
+
+## 使用
+- 安装依赖：`pnpm i`
+- 启动项目：`pnpm run dev`
