@@ -3,8 +3,6 @@
     <Profile />
     <Divider />
     <FeaturedPosts />
-
-    <!-- <PostListWithYear :posts="posts" :show-tags="true" :year-align-center="true" /> -->
   </div>
 </template>
 
