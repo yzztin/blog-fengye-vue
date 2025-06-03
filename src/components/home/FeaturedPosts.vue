@@ -19,7 +19,7 @@
   </div>
 
   <!-- 精选文章列表 -->
-  <PostList :posts="featuredPosts" :show-tags="true" />
+  <PostList :posts="featuredPosts" :show-tags="true" :year-align-center="true" />
 </template>
 
 <script setup lang="ts">
