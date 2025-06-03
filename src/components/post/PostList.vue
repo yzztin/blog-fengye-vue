@@ -8,6 +8,10 @@
     <section class="px-2 py-8 max-w-prose mx-auto gap-4 grid grid-cols-1">
         <template v-for="(post, index) in sortedPosts" :key="index">
             <!-- 年份背景 -->
+            <!--
+                pointer-events-none  禁用鼠标事件
+                -z-50  设置了负的 z-index，导致元素被其他元素覆盖
+            -->
             <!-- <div v-if="shouldShowYear(post)" class="relative pointer-events-none h-[30px] -z-50"> -->
             <div v-if="shouldShowYear(post)" class="relative h-[30px]">
                 <div class="absolute -top-6 w-[100%]">
@@ -17,6 +21,7 @@
                     </p>
                 </div>
             </div>
+
             <!-- 文章项 -->
             <PostListItem :post="post" :show-tags="showTags" />
         </template>
@@ -26,22 +31,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import PostListItem from './PostListItem.vue'
-
-interface Post {
-    id: string
-    title: string
-    date: Date
-    excerpt: string
-    tags?: string[]
-    category?: string
-    featured?: boolean
-    path?: string
-    content?: string
-    thumbnail?: string
-    thumbnail_alt?: string
-    updated?: Date
-    categories?: Array<{ name: string; path: string }>
-}
+import type { Post } from '@/stores/post'
 
 const props = defineProps<{
     posts: Post[]

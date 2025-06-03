@@ -68,22 +68,8 @@
 import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import TagList from './TagList.vue'
+import type { Post } from '@/stores/post'
 
-interface Post {
-    id: string
-    title: string
-    date: Date
-    excerpt: string
-    tags?: string[]
-    category?: string
-    featured?: boolean
-    path?: string
-    content?: string
-    thumbnail?: string
-    thumbnail_alt?: string
-    updated?: Date
-    categories?: Array<{ name: string; path: string }>
-}
 
 const props = defineProps<{
     post: Post

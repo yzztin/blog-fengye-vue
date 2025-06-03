@@ -30,7 +30,7 @@ import PostList from '@/components/post/PostList.vue'
 
 
 const postStore = usePostStore()
-const { posts } = postStore  // 解构赋值，这会断开响应式引用，变为一个普通的变量，相当于把 postStore.posts 赋值给了 posts
+// const { posts } = postStore  // 解构赋值，这会断开响应式引用，变为一个普通的变量，相当于把 postStore.posts 赋值给了 posts
 
 // 组件挂载到 DOM 后获取执行 fetchPosts() 方法获取文章，获取到的数据会自动更新到 pinia store 中
 // 在刚创建组件时，pinia store 是空的，在组件挂载后获取到实际的文章数据

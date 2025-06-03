@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
+// 导出 Post 接口供其他文件使用
 export interface Post {
   id: string
   title: string
@@ -9,28 +10,17 @@ export interface Post {
   tags?: string[]
   category?: string
   featured?: boolean
+  path?: string
+  content?: string
+  thumbnail?: string
+  thumbnail_alt?: string
+  updated?: Date
+  categories?: Array<{ name: string; path: string }>
 }
 
 export const usePostStore = defineStore('post', () => {
-  // 状态
+
   const posts = ref<Post[]>([])
-
-  // 按年份分组的文章
-  // const postsByYear = computed(() => {
-  //   const groups: Record<string, Post[]> = {}
-
-  //   posts.value
-  //     .sort((a, b) => b.date.getTime() - a.date.getTime())
-  //     .forEach(post => {
-  //       const year = post.date.getFullYear().toString()
-  //       if (!groups[year]) {
-  //         groups[year] = []
-  //       }
-  //       groups[year].push(post)
-  //     })
-
-  //   return groups
-  // })
 
   // 获取文章列表
   const fetchPosts = async () => {
@@ -58,7 +48,6 @@ export const usePostStore = defineStore('post', () => {
 
   return {
     posts,
-    // postsByYear,
     fetchPosts
   }
 }) 
