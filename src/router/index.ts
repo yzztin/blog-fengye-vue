@@ -33,8 +33,18 @@ const router = createRouter({
           path: 'post/:id',
           name: 'post',
           component: () => import('../views/Post.vue')
-        }
+        },
       ]
+    },
+    {
+      path: '/clock',
+      beforeEnter: (to, from, next) => {
+        // 使用原生跳转
+        window.location.href = '/clock.html'
+      },
+      component: {
+        template: '<div></div>'  // 空组件占位，避免类型检查报错
+      }
     }
   ]
 })

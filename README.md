@@ -23,3 +23,21 @@
 ## 使用
 - 安装依赖：`pnpm i`
 - 启动项目：`pnpm run dev`
+
+
+## vscode 插件
+- JavaScript Debugger
+- Auto Close Tag
+- Auto Rename Tag
+- Color Highlight
+- CSS Peek
+- ESLint
+- HTML CSS Support
+- indent-rainbow
+- Live Server
+- Path Intellisense
+- PostCSS Language Support
+- Tailwind CSS IntelliSense
+- TypeScript Vue Plugin (Volar)
+- Vue - Official
+- Vue 3 Snippets
