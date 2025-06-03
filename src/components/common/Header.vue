@@ -65,7 +65,7 @@
             <div class="flex flex-row items-center justify-center">
                 <!-- 主题切换 -->
                 <button class="flex group p-1" title="切换主题" @click="toggleTheme">
-                    <Icon :icon="isDark ? 'mingcute:sun-fill' : 'mingcute:moon-fill'" width="24" class="transition-transform
+                    <Icon :icon="isDark ? 'mingcute:moon-fill' : 'mingcute:sun-fill'" width="24" class="transition-transform
                 group-hover:rotate-[45deg]
                 group-hover:scale-125
                 group-hover:text-[var(--c-theme)]" />
@@ -142,11 +142,11 @@ interface NavItem {
 
 // 导航菜单
 const navItems: NavItem[] = [
-    {
-        path: '/',
-        name: 'Home',
-        icon: 'mingcute:home-fill'
-    },
+    // {
+    //     path: '/',
+    //     name: 'Home',
+    //     icon: 'mingcute:home-fill'
+    // },
     {
         path: '/archives',
         name: 'Archives',
@@ -162,10 +162,15 @@ const navItems: NavItem[] = [
         name: 'Tags',
         icon: 'mingcute:tag-2-fill'
     },
+    // {
+    //     path: '/about',
+    //     name: '关于',
+    //     icon: 'mingcute:user-fill'
+    // }
     {
-        path: '/about',
-        name: '关于',
-        icon: 'mingcute:user-fill'
+        path: '/clock',
+        name: '',
+        icon: 'mingcute:time-fill'
     }
 ]
 

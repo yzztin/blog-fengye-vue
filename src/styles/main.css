@@ -12,9 +12,9 @@
     transition-duration: 0.2s;
   }
 
-  a {
+  /* a {
     @apply text-[var(--c-theme)] transition-colors duration-100 ease-in-out;
-  }
+  } */
 
   a:hover {
     @apply text-[var(--c-theme)] cursor-pointer;

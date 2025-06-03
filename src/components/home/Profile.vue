@@ -28,12 +28,11 @@
       <!-- 位置和简历 -->
       <div class="flex flex-wrap items-center justify-center gap-4 my-6 font-bold text-lg">
         <div class="flex flex-row items-center gap-1">
-          <iconify-icon width="24" icon="mingcute:building-1-fill"></iconify-icon>
+          <Icon width="24" icon="mingcute:building-1-fill"></Icon>
           <p>{{ location }}</p>
         </div>
         <div class="flex flex-row items-center gap-1 group">
-          <iconify-icon class="transition-transform group-hover:scale-125" width="24"
-            icon="mingcute:idcard-fill"></iconify-icon>
+          <Icon class="transition-transform group-hover:scale-125" width="24" icon="mingcute:idcard-fill"></Icon>
           <a :href="cvPath" class="group-hover:underline">
             Resume ({{ cvLastUpdateDate }})
           </a>
@@ -53,6 +52,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { Icon } from '@iconify/vue'
 import portraitImage from '@/assets/images/portrait.jpg'
 
 const showProfileImage = ref(true)
