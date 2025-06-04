@@ -5,6 +5,11 @@
             <SocialList />
         </div>
 
+        <!-- busuanzi 网站访问统计信息 -->
+        <div class="mb-6">
+            <BusuanziStats />
+        </div>
+
         <!-- 版权信息 -->
         <div class="flex flex-row items-center gap-2">
             <a class="hover:underline" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
@@ -33,5 +38,6 @@
 
 <script setup lang="ts">
 import SocialList from './SocialList.vue'
+import BusuanziStats from '@/components/common/BusuanziStats.vue'
 
 </script>

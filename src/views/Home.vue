@@ -11,5 +11,4 @@ import Profile from '@/components/home/Profile.vue'
 import Divider from '@/components/common/Divider.vue'
 import FeaturedPosts from '@/components/home/FeaturedPosts.vue'
 
-
 </script>

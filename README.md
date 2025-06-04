@@ -38,6 +38,5 @@
 - Path Intellisense
 - PostCSS Language Support
 - Tailwind CSS IntelliSense
-- TypeScript Vue Plugin (Volar)
 - Vue - Official
 - Vue 3 Snippets
