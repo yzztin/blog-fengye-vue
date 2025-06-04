@@ -10,8 +10,12 @@
       hover:scale-[1.04] 这是 Tailwind CSS 的伪类 hover 和 scale 的组合。当鼠标悬停在图片上时，图片的缩放比例会变为 1.04
       transition-transform 用于为图片的变换（如缩放）添加过渡效果，确保图片的放大效果是平滑的，而不是瞬间完成的。
       -->
-      <img v-if="showProfileImage" :src="portrait" :alt="title"
-        class="rounded-3xl w-36 sm:w-48 hover:scale-[1.04] transition-transform" />
+
+      <!-- 点击头像图片跳转到 /about -->
+      <router-link to="/about" class="cursor-pointer">
+        <img v-if="showProfileImage" :src="portrait" :alt="title"
+          class="rounded-3xl w-36 sm:w-48 hover:scale-[1.04] transition-transform" />
+      </router-link>
 
       <!-- 标题 -->
       <h1
@@ -21,7 +25,7 @@
 
       <!-- 副标题 -->
       <p
-        class="text-3xl font-extrabold text-center bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent text-[var(--c-80)]">
+        class="text-3xl font-extrabold text-center bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
         {{ subtitle }}
       </p>
 

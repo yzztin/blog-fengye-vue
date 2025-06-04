@@ -23,7 +23,6 @@
             <router-link to="/" class="
                 whitespace-nowrap
                 text-2xl
-                text-[var(--c-theme)]
                 hover:text-[var(--c-theme)]
                 pl-4
                 font-black
@@ -65,10 +64,11 @@
             <div class="flex flex-row items-center justify-center">
                 <!-- 主题切换 -->
                 <button class="flex group p-1" title="切换主题" @click="toggleTheme">
-                    <Icon :icon="isDark ? 'mingcute:moon-fill' : 'mingcute:sun-fill'" width="24" class="transition-transform
-                group-hover:rotate-[45deg]
-                group-hover:scale-125
-                group-hover:text-[var(--c-theme)]" />
+                    <!-- <Icon :icon="isDark ? 'mingcute:moon-fill' : 'mingcute:sun-fill'" width="24" class="transition-transform -->
+                    <Icon :icon="isDark ? 'ic:round-dark-mode' : 'ic:round-light-mode'" width="24" class="transition-transform
+                        group-hover:rotate-[45deg]
+                        group-hover:scale-125
+                        group-hover:text-[var(--c-theme)]" />
                 </button>
 
                 <!-- 移动端菜单按钮 -->

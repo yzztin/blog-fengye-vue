@@ -23,11 +23,11 @@ const socialLinks: SocialLink[] = [
         url: 'https://github.com/yzztin',
         icon: 'mingcute:github-fill'
     },
-    {
-        name: 'Twitter',
-        url: 'https://twitter.com/yzztin',
-        icon: 'mingcute:social-x-fill'
-    },
+    // {
+    //     name: 'Twitter',
+    //     url: 'https://twitter.com/yzztin',
+    //     icon: 'mingcute:social-x-fill'
+    // },
     {
         name: 'Email',
         url: 'mailto:yzz223@qq.com',
