@@ -40,3 +40,12 @@
 - Tailwind CSS IntelliSense
 - Vue - Official
 - Vue 3 Snippets
+
+
+## Time Line（PRD）
+- 2025.05.29 - 2025.06.05 学习和项目基本框架
+
+- 2025.06.09-15
+1. 不同页面动态标题
+2. 文章、分类、标签页面，文章数据 mock
+3. 文章字数统计、标签、分类显示、创建时间、更新时间
