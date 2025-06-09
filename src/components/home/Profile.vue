@@ -13,32 +13,32 @@
 
       <!-- 点击头像图片跳转到 /about -->
       <router-link to="/about" class="cursor-pointer">
-        <img v-if="showProfileImage" :src="portrait" :alt="title"
+        <img :src="baseConfig.portrait" :alt="baseConfig.title"
           class="rounded-3xl w-36 sm:w-48 hover:scale-[1.04] transition-transform" />
       </router-link>
 
       <!-- 标题 -->
       <h1
         class="site-title text-center text-5xl bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent pb-4 pt-6 font-black">
-        {{ title }}
+        {{ baseConfig.title }}
       </h1>
 
       <!-- 副标题 -->
       <p
         class="text-3xl font-extrabold text-center bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
-        {{ subtitle }}
+        {{ baseConfig.subtitle }}
       </p>
 
       <!-- 位置和简历 -->
       <div class="flex flex-wrap items-center justify-center gap-4 my-6 font-bold text-lg">
         <div class="flex flex-row items-center gap-1">
           <Icon width="24" icon="mingcute:building-1-fill"></Icon>
-          <p>{{ location }}</p>
+          <p>{{ baseConfig.location }}</p>
         </div>
         <div class="flex flex-row items-center gap-1 group">
           <Icon class="transition-transform group-hover:scale-125" width="24" icon="mingcute:idcard-fill"></Icon>
-          <a :href="cvPath" class="group-hover:underline">
-            Resume ({{ cvLastUpdateDate }})
+          <a :href="baseConfig.cvPath" class="group-hover:underline">
+            Resume ({{ baseConfig.cvLastUpdateDate }})
           </a>
         </div>
       </div>
@@ -46,7 +46,7 @@
       <!-- 描述 -->
       <div class="description-container max-w-prose mx-auto grid grid-cols-1">
         <div class="text-left p-8">
-          <p v-html="descriptionClean"></p>
+          <p v-html="baseConfig.descriptionClean()"></p>
         </div>
       </div>
 
@@ -55,17 +55,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
-import portraitImage from '@/assets/images/portrait.jpg'
+import { useBaseConfig } from '@/stores/useConfig'
 
-const showProfileImage = ref(true)
-const portrait = ref(portraitImage)
-const title = ref("Yzz's Blog")
-const subtitle = ref('')
-const location = ref('Beijing, China')
-const cvPath = ref('')
-const cvLastUpdateDate = ref('2025-04-07')
-const description = ref('A blog for note, thinking and life.')
-const descriptionClean = description.value.replace(/(?:\r\n|\r|\n)/g, '<br>')
+const baseConfig = useBaseConfig()
+
 </script>

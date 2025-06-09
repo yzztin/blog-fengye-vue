@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import DefaultLayout from '../layouts/DefaultLayout.vue'
 import Home from '../views/Home.vue'
+import { usePageTitleStore } from '../stores/pageTitle'
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -47,6 +49,18 @@ const router = createRouter({
       }
     }
   ]
+})
+
+const updateTitlePaths = ['archives', 'categories', 'tags', 'post']
+
+router.beforeEach((to, from, next) => {
+  const currentPath = to.path.replace(/^\//, '')
+  if (updateTitlePaths.includes(currentPath)) {
+    const pageTitleStore = usePageTitleStore()
+    pageTitleStore.updateTitle(to.name as string)
+  }
+
+  next()
 })
 
 export default router

@@ -1,4 +1,15 @@
 import { defineStore } from 'pinia'
+import portraitImage from '@/assets/images/portrait.jpg'
+
+interface BaseConfig {
+  title: string
+  portrait: string
+  subtitle: string
+  location: string
+  cvPath: string
+  cvLastUpdateDate: string
+  description: string
+}
 
 interface NavItem {
   path: string
@@ -8,20 +19,31 @@ interface NavItem {
 }
 
 interface HeaderState {
-  siteTitle: string
   navItems: NavItem[]
-
 }
 
-export const useHeaderStore = defineStore('header', {
+
+const useBaseConfig = defineStore('baseConfig', {
+  state: (): BaseConfig => ({
+    title: "Yzz's Blog",
+    portrait: portraitImage,
+    subtitle: '',
+    location: 'Beijing, China',
+    cvPath: '',
+    cvLastUpdateDate: '2025-04-07',
+    description: 'A blog for note, thinking and life.'
+  }),
+  actions: {
+    descriptionClean() {
+      return this.description.replace(/(?:\r\n|\r|\n)/g, '<br>')
+    }
+  }
+}
+)
+
+const useHeaderStore = defineStore('header', {
   state: (): HeaderState => ({
-    siteTitle: 'Yzz\'s Blog',
     navItems: [
-      // {
-      //     path: '/',
-      //     name: 'Home',
-      //     icon: 'mingcute:home-fill'
-      // },
       {
         path: '/archives',
         name: 'Archives',
@@ -37,11 +59,6 @@ export const useHeaderStore = defineStore('header', {
         name: 'Tags',
         icon: 'mingcute:tag-2-fill'
       },
-      // {
-      //     path: '/about',
-      //     name: '关于',
-      //     icon: 'mingcute:user-fill'
-      // }
       {
         path: '/clock',
         name: '',
@@ -50,3 +67,8 @@ export const useHeaderStore = defineStore('header', {
     ]
   })
 })
+
+export {
+  useBaseConfig,
+  useHeaderStore
+}

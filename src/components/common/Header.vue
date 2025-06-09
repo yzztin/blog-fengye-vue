@@ -126,14 +126,15 @@
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useTheme } from '@/composables/useTheme'
-import { useHeaderStore } from '@/stores/useConfig'
+import { useBaseConfig, useHeaderStore } from '@/stores/useConfig'
 
 const { isDark, toggleTheme } = useTheme()
 
+const baseConfig = useBaseConfig()
 const headerStore = useHeaderStore()
 
 // 网站标题
-const siteTitle = headerStore.siteTitle
+const siteTitle = baseConfig.title
 
 // 导航菜单
 const navItems = headerStore.navItems
