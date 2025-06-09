@@ -126,53 +126,17 @@
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useTheme } from '@/composables/useTheme'
+import { useHeaderStore } from '@/stores/useConfig'
 
 const { isDark, toggleTheme } = useTheme()
 
-// 网站标题
-const siteTitle = 'Yzz\'s Blog'
+const headerStore = useHeaderStore()
 
-// 导航菜单类型
-interface NavItem {
-    path: string
-    name: string
-    icon: string
-    showName?: boolean
-}
+// 网站标题
+const siteTitle = headerStore.siteTitle
 
 // 导航菜单
-const navItems: NavItem[] = [
-    // {
-    //     path: '/',
-    //     name: 'Home',
-    //     icon: 'mingcute:home-fill'
-    // },
-    {
-        path: '/archives',
-        name: 'Archives',
-        icon: 'mingcute:inbox-fill'
-    },
-    {
-        path: '/categories',
-        name: 'Categories',
-        icon: 'mingcute:classify-3-fill'
-    },
-    {
-        path: '/tags',
-        name: 'Tags',
-        icon: 'mingcute:tag-2-fill'
-    },
-    // {
-    //     path: '/about',
-    //     name: '关于',
-    //     icon: 'mingcute:user-fill'
-    // }
-    {
-        path: '/clock',
-        name: '',
-        icon: 'mingcute:time-fill'
-    }
-]
+const navItems = headerStore.navItems
 
 // 移动端菜单状态
 const isMenuOpen = ref(false)

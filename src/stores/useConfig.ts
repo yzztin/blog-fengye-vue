@@ -1,10 +1,52 @@
 import { defineStore } from 'pinia'
 
-export const useConfigStore = defineStore('config', {
-  state: () => ({
-    title: '网站标题',
-    subtitle: '网站副标题',
-    description: '网站描述',
-    // ... 其他配置
+interface NavItem {
+  path: string
+  name: string
+  icon: string
+  showName?: boolean
+}
+
+interface HeaderState {
+  siteTitle: string
+  navItems: NavItem[]
+
+}
+
+export const useHeaderStore = defineStore('header', {
+  state: (): HeaderState => ({
+    siteTitle: 'Yzz\'s Blog',
+    navItems: [
+      // {
+      //     path: '/',
+      //     name: 'Home',
+      //     icon: 'mingcute:home-fill'
+      // },
+      {
+        path: '/archives',
+        name: 'Archives',
+        icon: 'mingcute:inbox-fill'
+      },
+      {
+        path: '/categories',
+        name: 'Categories',
+        icon: 'mingcute:classify-3-fill'
+      },
+      {
+        path: '/tags',
+        name: 'Tags',
+        icon: 'mingcute:tag-2-fill'
+      },
+      // {
+      //     path: '/about',
+      //     name: '关于',
+      //     icon: 'mingcute:user-fill'
+      // }
+      {
+        path: '/clock',
+        name: '',
+        icon: 'mingcute:time-fill'
+      }
+    ]
   })
 })
