@@ -23,7 +23,7 @@
             </div>
 
             <!-- 文章项 -->
-            <PostListItem :post="post" :show-tags="showTags" />
+            <PostListItem :post="post" />
         </template>
     </section>
 </template>
@@ -35,7 +35,6 @@ import type { Post } from '@/stores/post'
 
 const props = defineProps<{
     posts: Post[]
-    showTags?: boolean
 }>()
 
 // 根据日期排序文章

@@ -3,7 +3,7 @@
 -->
 <template>
     <div class="flex flex-wrap gap-1">
-        <router-link v-for="tag in tags" :key="tag" :to="`/tag/${tag}`" class="
+        <router-link v-for="tag in tags" :key="tag" :to="`/tags/${tag}`" class="
             tag
             text-sm
             rounded-full

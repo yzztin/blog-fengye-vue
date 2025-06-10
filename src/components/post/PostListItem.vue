@@ -58,7 +58,7 @@
         </div>
 
         <!-- 标签 -->
-        <div v-if="showTags && post.tags?.length">
+        <div v-if="post.tags?.length">
             <TagList :tags="post.tags" />
         </div>
     </div>
@@ -73,7 +73,6 @@ import type { Post } from '@/stores/post'
 
 const props = defineProps<{
     post: Post
-    showTags?: boolean
 }>()
 
 const formatDate = (date: Date) => {

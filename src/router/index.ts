@@ -27,13 +27,18 @@ const router = createRouter({
           component: () => import('../views/Categories.vue')
         },
         {
-          path: '/categories/:category',
+          path: 'categories/:category',
           name: 'category',
           component: () => import('../views/Categories.vue')
         },
         {
           path: 'tags',
           name: 'tags',
+          component: () => import('../views/Tags.vue')
+        },
+        {
+          path: 'tags/:tag',
+          name: 'tag',
           component: () => import('../views/Tags.vue')
         },
         {

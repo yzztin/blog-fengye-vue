@@ -1,32 +1,29 @@
 <template>
-    <div>
-        <!-- 当显示特定分类的文章时 -->
-        <div v-if="isCategoryPage" class="flex flex-col items-center">
-            <div class="mt-6 flex flex-row items-center gap-2 text-2xl h-8 px-4">
-                <Icon width="28" :icon="categoriesIcon" />
-                <span>
-                    <p>Category: {{ currentCategory }}</p>
-                </span>
-            </div>
-            <PostList :posts="categoryPosts" />
+    <!-- 当显示特定分类的文章时 -->
+    <div v-if="isCategoryPage" class="flex flex-col items-center">
+        <div class="mt-6 flex flex-row items-center gap-2 text-2xl h-8 px-4">
+            <Icon width="28" :icon="categoriesIcon" />
+            <span>
+                <p>Category: {{ currentCategory }}</p>
+            </span>
         </div>
+        <PostList :posts="categoryPosts" />
+    </div>
 
-        <!-- 当显示所有分类时 -->
-        <div v-else class="flex flex-col gap-2 px-6 max-w-prose mx-auto md:px-0 my-8">
-            <div class="flex flex-row items-center gap-2">
-                <Icon width="30" :icon="categoriesIcon" />
-                <h2 class="font-bold text-2xl">Categories</h2>
-            </div>
-            <div class="mt-2 flex flex-col">
-                <router-link v-for="(category, index) in categories" :key="index"
-                    :to="`/categories/${category.categoryName}`" class="py-2 group">
-                    <div
-                        class="flex flex-row gap-1 group-hover:translate-x-2 transition-transform group-hover:underline">
-                        <p>{{ category.categoryName }}</p>
-                        <span>({{ category.count }})</span>
-                    </div>
-                </router-link>
-            </div>
+    <!-- 当显示所有分类时 -->
+    <div v-else class="flex flex-col gap-2 px-6 max-w-prose mx-auto md:px-0 my-8">
+        <div class="flex flex-row items-center gap-2">
+            <Icon width="30" :icon="categoriesIcon" />
+            <h2 class="font-bold text-2xl">Categories</h2>
+        </div>
+        <div class="mt-2 flex flex-col">
+            <router-link v-for="(category, index) in categories" :key="index"
+                :to="`/categories/${category.categoryName}`" class="py-2 group">
+                <div class="flex flex-row gap-1 group-hover:translate-x-2 transition-transform group-hover:underline">
+                    <p>{{ category.categoryName }}</p>
+                    <span>({{ category.count }})</span>
+                </div>
+            </router-link>
         </div>
     </div>
 </template>
@@ -45,16 +42,14 @@ const route = useRoute()
 const postStore = usePostStore()
 const headerStore = useHeaderStore()
 
-// 获取 /categories 对应的图标
+// 获取 Categories 对应的图标
 const categoriesIcon = computed(() => {
     const item = headerStore.navItems.find((item) => item.name === 'Categories');
     return item?.icon || 'mingcute:classify-2-fill'; // 如果找不到，返回默认图标
 });
 
 onMounted(async () => {
-    console.log("调用 onMounted")
     await postStore.fetchPosts()
-    console.log('Posts 结果:', postStore.posts)
 })
 
 // 当前是显示全部分类还是某个特定分类的页面
