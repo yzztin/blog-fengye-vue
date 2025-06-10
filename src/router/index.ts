@@ -54,6 +54,7 @@ const router = createRouter({
 const updateTitlePaths = ['archives', 'categories', 'tags', 'post']
 
 router.beforeEach((to, from, next) => {
+  // 如果 path 在 updateTitlePaths 内，就更新标题
   const currentPath = to.path.replace(/^\//, '')
   if (updateTitlePaths.includes(currentPath)) {
     const pageTitleStore = usePageTitleStore()

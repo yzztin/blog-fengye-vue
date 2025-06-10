@@ -85,6 +85,6 @@ const wordCount = computed(() => {
 })
 
 const readingTime = computed(() => {
-    return Math.ceil(wordCount.value / 200) // 假设阅读速度为每分钟200字
+    return Math.ceil(wordCount.value / 400) // 假设阅读速度为每分钟400字
 })
 </script>

@@ -31,6 +31,7 @@ export const usePostStore = defineStore('post', () => {
         title: 'Vue3 组合式 API 最佳实践',
         date: new Date('2025-03-29'),
         excerpt: '本文介绍了 Vue3 组合式 API 的使用技巧和最佳实践...',
+        content: '本文介绍了 Vue3 组合式 API 的使用技巧和最佳实践，深入理解 TypeScript 的类型系统，掌握类型体操的基本技巧',
         category: '前端',
         tags: ['Vue3', 'TypeScript', '最佳实践'],
         featured: true
