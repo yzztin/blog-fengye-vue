@@ -67,7 +67,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
-import TagList from './TagList.vue'
+import TagList from '@/components/post/PostTag.vue'
 import type { Post } from '@/stores/post'
 
 

@@ -41,7 +41,7 @@ export const usePostStore = defineStore('post', () => {
         title: 'TypeScript 类型体操入门',
         date: new Date('2024-03-28'),
         excerpt: '深入理解 TypeScript 的类型系统，掌握类型体操的基本技巧...',
-        category: '前端',
+        category: 'ts',
         tags: ['TypeScript', '类型系统']
       }
     ]
