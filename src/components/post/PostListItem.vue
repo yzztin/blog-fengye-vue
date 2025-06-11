@@ -6,19 +6,20 @@
     <div class="post-container px-2 py-2 flex flex-col gap-3">
         <div class="flex flex-row items-center gap-4 max-h-36">
             <!-- 文章缩略图 -->
-            <a v-if="post.thumbnail" :href="post.path" class="h-full min-w-16 max-w-36 sm:max-w-48">
+            <router-link v-if="post.thumbnail" :to="`/archives/${post.id}`"
+                class="h-full min-w-16 max-w-36 sm:max-w-48">
                 <img class="rounded-md object-cover transition-all hover:scale-105 hover:shadow-md"
-                    :src="post.path + post.thumbnail" :alt="post.thumbnail_alt">
-            </a>
+                    :src="post.path + post.thumbnail" :alt="post.thumbnail_alt" />
+            </router-link>
 
             <div class="flex flex-col gap-1">
                 <!-- 文章标题 -->
-                <a :href="post.path">
+                <router-link :to="`/archives/${post.id}`">
                     <h2
                         class="text-[var(--c-80)] font-bold text-xl hover:text-[var(--c-theme)] transition-all hover:underline">
                         {{ post.title }}
                     </h2>
-                </a>
+                </router-link>
 
                 <!-- 文章摘要 -->
                 <div v-if="post.excerpt"
@@ -44,16 +45,16 @@
 
             <span class="flex flex-row items-center gap-1 group">
                 <Icon icon="mingcute:book-2-fill" width="16" />
-                <p class="w-max">{{ wordCount }} words, {{ readingTime }} min</p>
+                <p class="w-max">{{ post.wordCount }} words, {{ post.readTime }} min</p>
             </span>
 
             <!-- 分类 -->
             <span v-if="post.category?.length" class="flex flex-row items-center gap-1 group">
                 <Icon :icon="categoriesIcon" width="16"
                     class="group-hover:scale-125 transition-transform group-hover:text-[var(--c-theme)]" />
-                <a class="underline underline-offset-2" :href="`/categories/${post.category}`">
+                <router-link :to="`/categories/${post.category}`" class="underline underline-offset-2">
                     {{ post.category }}
-                </a>
+                </router-link>
             </span>
         </div>
 
@@ -69,6 +70,7 @@ import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import TagList from '@/components/post/PostTag.vue'
 import type { Post } from '@/stores/post'
+import { formatDate } from '@/stores/post'
 import { useHeaderStore } from '@/stores/useConfig'
 
 const headerStore = useHeaderStore()
@@ -77,22 +79,14 @@ const props = defineProps<{
     post: Post
 }>()
 
+console.log("item post", props.post)
+
+// const post = props.post
+
 // 获取 Categories 对应的图标
 const categoriesIcon = computed(() => {
     const item = headerStore.navItems.find((item) => item.name === 'Categories');
     return item?.icon || 'mingcute:classify-2-fill'; // 如果找不到，返回默认图标
 });
 
-
-const formatDate = (date: Date) => {
-    return new Date(date).toISOString().split('T')[0]
-}
-
-const wordCount = computed(() => {
-    return props.post.content?.split(/\s+/).length || 0
-})
-
-const readingTime = computed(() => {
-    return Math.ceil(wordCount.value / 400) // 假设阅读速度为每分钟400字
-})
 </script>

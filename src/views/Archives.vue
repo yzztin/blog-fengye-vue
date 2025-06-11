@@ -1,12 +1,11 @@
 <template>
-    <PostList :posts="postStore.posts" :show-tags="true" />
+    <PostList :posts="postStore.posts" />
 </template>
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import PostList from '@/components/post/PostList.vue'
 import { usePostStore } from '@/stores/post'
-
 
 const postStore = usePostStore()
 
