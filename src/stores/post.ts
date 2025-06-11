@@ -6,7 +6,7 @@ export interface Post {
   id?: string
   title: string
   date: Date
-  excerpt: string
+  excerpt?: string
   wordCount?: number
   readTime?: number
   tags?: string[]
@@ -47,6 +47,46 @@ const usePostStore = defineStore('post', () => {
         excerpt: '深入理解 TypeScript 的类型系统，掌握类型体操的基本技巧...',
         category: 'ts',
         tags: ['TypeScript', '类型系统']
+      },
+      {
+        title: '中文测试中文测试中文测试中文测试',
+        date: new Date('2024-02-22'),
+      },
+      {
+        title: '中文测试中文测试中文测试中文测试',
+        date: new Date('2024-02-22'),
+      },
+      {
+        title: '中文测试中文测试中文测试中文测试',
+        date: new Date('2024-02-22'),
+      },
+      {
+        title: '中文测试中文测试中文测试中文测试',
+        date: new Date('2024-02-22'),
+      },
+      {
+        title: '中文测试中文测试中文测试中文测试',
+        date: new Date('2024-02-22'),
+      },
+      {
+        title: '中文测试中文测试中文测试中文测试',
+        date: new Date('2024-02-22'),
+      },
+      {
+        title: '中文测试中文测试中文测试中文测试',
+        date: new Date('2024-02-22'),
+      },
+      {
+        title: '中文测试中文测试中文测试中文测试',
+        date: new Date('2024-02-22'),
+      },
+      {
+        title: '中文测试中文测试中文测试中文测试',
+        date: new Date('2024-02-22'),
+      },
+      {
+        title: '中文测试中文测试中文测试中文测试',
+        date: new Date('2024-02-22'),
       }
     ]
 
@@ -56,7 +96,7 @@ const usePostStore = defineStore('post', () => {
       const dataForId = `${post.date.getFullYear()}${String(post.date.getMonth() + 1).padStart(2, '0')}${String(post.date.getDate()).padStart(2, '0')}`;
 
       // 处理标题，如果标题超过 10 个字，截取前 10 个字并在末尾加上 *
-      let title = post.title
+      let title = post.title.replace(/\s+/g, '')
       if (title.length > 10) {
         title = title.slice(0, 10) + '*';
       }
