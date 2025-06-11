@@ -15,7 +15,6 @@ export interface Post {
   thumbnail?: string
   thumbnail_alt?: string
   updated?: Date
-  categories?: Array<{ name: string; path: string }>
 }
 
 export const usePostStore = defineStore('post', () => {
@@ -30,6 +29,7 @@ export const usePostStore = defineStore('post', () => {
         id: '1',
         title: 'Vue3 组合式 API 最佳实践',
         date: new Date('2025-03-29'),
+        updated: new Date('2025-06-11'),
         excerpt: '本文介绍了 Vue3 组合式 API 的使用技巧和最佳实践...',
         content: '本文介绍了 Vue3 组合式 API 的使用技巧和最佳实践，深入理解 TypeScript 的类型系统，掌握类型体操的基本技巧',
         category: '前端',

@@ -30,11 +30,13 @@
 
         <!-- 文章统计信息 -->
         <div class="flex flex-wrap items-center gap-x-2 text-sm text-[var(--c-70)]">
+            <!-- 文章创建时间 -->
             <span class="flex flex-row items-center gap-1 group">
                 <Icon icon="mingcute:add-circle-fill" width="16" />
                 <time class="w-max">{{ formatDate(post.date) }}</time>
             </span>
 
+            <!-- 文章更新时间 -->
             <span v-if="post.updated" class="flex flex-row items-center gap-1 group">
                 <Icon icon="mingcute:refresh-3-fill" width="16" />
                 <time class="w-max">{{ formatDate(post.updated) }}</time>
@@ -46,14 +48,12 @@
             </span>
 
             <!-- 分类 -->
-            <span v-if="post.categories?.length" class="flex flex-row items-center gap-1 group">
-                <Icon icon="mingcute:classify-2-fill" width="16"
+            <span v-if="post.category?.length" class="flex flex-row items-center gap-1 group">
+                <Icon :icon="categoriesIcon" width="16"
                     class="group-hover:scale-125 transition-transform group-hover:text-[var(--c-theme)]" />
-                <template v-for="(category, index) in post.categories" :key="index">
-                    <a class="underline underline-offset-2" :href="category.path.toLowerCase()">
-                        {{ category.name }}
-                    </a>
-                </template>
+                <a class="underline underline-offset-2" :href="`/categories/${post.category}`">
+                    {{ post.category }}
+                </a>
             </span>
         </div>
 
@@ -69,11 +69,20 @@ import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import TagList from '@/components/post/PostTag.vue'
 import type { Post } from '@/stores/post'
+import { useHeaderStore } from '@/stores/useConfig'
 
+const headerStore = useHeaderStore()
 
 const props = defineProps<{
     post: Post
 }>()
+
+// 获取 Categories 对应的图标
+const categoriesIcon = computed(() => {
+    const item = headerStore.navItems.find((item) => item.name === 'Categories');
+    return item?.icon || 'mingcute:classify-2-fill'; // 如果找不到，返回默认图标
+});
+
 
 const formatDate = (date: Date) => {
     return new Date(date).toISOString().split('T')[0]
