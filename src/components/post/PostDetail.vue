@@ -1,5 +1,7 @@
 <!-- 单篇文章的详细信息 -->
 <template>
+    <!-- <FancyboxGallery />
+    <TableOfContents /> -->
     <section class="px-6 max-w-prose mx-auto md:px-0">
         <!-- 文章头部 -->
         <header class="py-4">
@@ -85,6 +87,8 @@ import { useRoute } from 'vue-router'
 import type { Post } from '@/stores/post'
 import { usePostStore, formatDate } from '@/stores/post'
 import TagList from '@/components/post/PostTag.vue'
+// import TableOfContents from '@/components/post/TableOfContents.vue'
+// import FancyboxGallery from '@/components/post/FancyboxGallery.vue'
 
 
 const route = useRoute()

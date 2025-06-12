@@ -4,8 +4,8 @@
 -->
 
 <template>
-    <!-- <div class="back-to-top fixed right-6 z-1024 -bottom-20 rounded-lg font-bold py-1 px-2 text-[var(--c-80)] bg-[var(--c-20)] cursor-pointer text-center drop-shadow-md" -->
-    <div class="back-to-top fixed right-6 z-1024 bottom-8 rounded-lg font-bold py-1 px-2 text-[var(--c-80)] bg-[var(--c-20)] cursor-pointer text-center drop-shadow-md"
+    <!-- <div class="back-to-top fixed right-6 z-1024 bottom-8 rounded-lg font-bold py-1 px-2 text-[var(--c-80)] bg-[var(--c-20)] cursor-pointer text-center drop-shadow-md" -->
+    <div class="back-to-top fixed right-6 z-1024 -bottom-20 rounded-lg font-bold py-1 px-2 text-[var(--c-80)] bg-[var(--c-20)] cursor-pointer text-center drop-shadow-md"
         :class="{ 'back-to-top-on': show }" @click="scrollToTop">
         <span class="flex justify-center items-center text-sm">
             <span id="scrollpercent"><span>{{ scrollPercent }}</span> %</span>

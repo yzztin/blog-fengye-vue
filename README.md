@@ -2,7 +2,7 @@
 主要目的是学习 vue3 编程，用到的技术：
 - vue3 + TypeScript  组合式 api
 - vue router 路由管理
-- Tailwind CSS  样式管理
+- Tailwind CSS  样式框架
 - Pinia  状态管理
 - pnpm  依赖管理
 
