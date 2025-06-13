@@ -19,11 +19,11 @@
   </div>
 
   <!-- 精选文章列表 -->
-  <PostList :posts="featuredPosts" :show-tags="true" />
+  <PostList :posts="postStore.getFeaturedPosts()" :show-tags="true" />
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { Icon } from '@iconify/vue'  // 引入 Icon 组件
 import { usePostStore } from '@/stores/post'
 import PostList from '@/components/post/PostList.vue'
@@ -43,11 +43,9 @@ onMounted(async () => {
 
 // 计算属性：从所有文章中获取精选文章
 // post => post.featured 是一个回调函数，代表会对每一个 post 进行判断，如果 post.featured 为 true，则将该 post 添加到 featuredPosts 中
-const featuredPosts = computed(() => {
-  const filtered = postStore.posts.filter(post => post.featured)
-  console.log('过滤后的结果:', filtered)
-  return filtered
-  // return postStore.posts.filter(post => post.featured)
-})
-
+// const featuredPosts = computed(() => {
+//   const filtered = postStore.posts.filter(post => post.featured)
+//   console.log('过滤后的结果:', filtered)
+//   return filtered
+// })
 </script>

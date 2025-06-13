@@ -1,134 +1,165 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import {
+    getPostFiles,
+    readPostFile,
+    parseMarkdown,
+    generateSlug
+} from '@/plugins/md'
+import type { Post } from '@/types/post'
 
-// 导出 Post 接口供其他文件使用
-export interface Post {
-  id?: string
-  title: string
-  date: Date
-  excerpt?: string
-  wordCount?: number
-  readTime?: number
-  tags?: string[]
-  category?: string
-  featured?: boolean
-  path?: string
-  content?: string
-  thumbnail?: string
-  thumbnail_alt?: string
-  updated?: Date
-}
 
 const formatDate = (date: Date) => {
-  return date.toISOString().split('T')[0];
+    return date.toISOString().split('T')[0];
 }
 
 const usePostStore = defineStore('post', () => {
 
-  const posts = ref<Post[]>([])
+    const posts = ref<Post[]>([])
 
-  // 获取文章列表
-  const fetchPosts = async () => {
+    // 获取文章列表
+    const fetchPosts = async () => {
+        try {
+            // 获取所有文章文件名
+            const filenames = await getPostFiles()
 
-    const rawPosts: Post[] = [
-      {
-        title: 'Vue3 组合式 API 最佳实践',
-        date: new Date('2025-03-29'),
-        updated: new Date('2025-06-11'),
-        excerpt: '本文介绍了 Vue3 组合式 API 的使用技巧和最佳实践...',
-        content: '本文介绍了 Vue3 组合式 API 的使用技巧和最佳实践，深入理解 TypeScript 的类型系统，掌握类型体操的基本技巧',
-        category: '前端',
-        tags: ['Vue3', 'TypeScript', '最佳实践'],
-        featured: true
-      },
-      {
-        title: 'TypeScript 类型体操入门',
-        date: new Date('2025-05-28'),
-        excerpt: '深入理解 TypeScript 的类型系统，掌握类型体操的基本技巧...',
-        category: 'ts',
-        tags: ['TypeScript', '类型系统']
-      },
-      {
-        title: '中文测试中文测试中文测试中文测试',
-        date: new Date('2024-02-22'),
-      },
-      {
-        title: '中文测试中文测试中文测试中文测试',
-        date: new Date('2024-02-22'),
-      },
-      {
-        title: '中文测试中文测试中文测试中文测试',
-        date: new Date('2024-02-22'),
-      },
-      {
-        title: '中文测试中文测试中文测试中文测试',
-        date: new Date('2024-02-22'),
-      },
-      {
-        title: '中文测试中文测试中文测试中文测试',
-        date: new Date('2024-02-22'),
-      },
-      {
-        title: '中文测试中文测试中文测试中文测试',
-        date: new Date('2024-02-22'),
-      },
-      {
-        title: '中文测试中文测试中文测试中文测试',
-        date: new Date('2024-02-22'),
-      },
-      {
-        title: '中文测试中文测试中文测试中文测试',
-        date: new Date('2024-02-22'),
-      },
-      {
-        title: '中文测试中文测试中文测试中文测试',
-        date: new Date('2024-02-22'),
-      },
-      {
-        title: '中文测试中文测试中文测试中文测试',
-        date: new Date('2024-02-22'),
-      }
-    ]
+            console.log('filename', filenames)
 
-    // 生成id、统计字数和阅读时间
-    const processedPosts = rawPosts.map(post => {
-      // 提取时间戳并格式化为 YYYYMMDD 格式
-      const dataForId = `${post.date.getFullYear()}${String(post.date.getMonth() + 1).padStart(2, '0')}${String(post.date.getDate()).padStart(2, '0')}`;
+            // 读取并解析每个文章文件
+            const postPromises = filenames.map(async (filename) => {
+                try {
+                    const content = await readPostFile(filename)
+                    const slug = generateSlug(filename)
+                    return parseMarkdown(content, slug)
+                } catch (err) {
+                    console.error(`Error processing ${filename}:`, err)
+                    return null
+                }
+            })
 
-      // 处理标题，如果标题超过 10 个字，截取前 10 个字并在末尾加上 *
-      let title = post.title.replace(/\s+/g, '')
-      if (title.length > 10) {
-        title = title.slice(0, 10) + '*';
-      }
+            const rawPosts = await Promise.all(postPromises)
 
-      // 生成 ID
-      const id = `${dataForId}-${title}`;
+            // 过滤掉解析失败的文章
+            const validPosts = rawPosts.filter((post): post is Post => post !== null)
 
-      // 计算字数和阅读时间
-      const wordCount = post.content?.split(/\s+/).length || 0;
-      const readTime = Math.ceil(wordCount / 400);
+            // 生成id、统计字数和阅读时间
+            const processedPosts = validPosts.map(post => {
+                // 提取时间戳并格式化为 YYYYMMDD 格式
+                const dataForId = `${post.date.getFullYear()}${String(post.date.getMonth() + 1).padStart(2, '0')}${String(post.date.getDate()).padStart(2, '0')}`;
 
-      return {
-        // 扩展运算符 [...posts]，作用是创建 posts 数组的一个浅拷贝。
-        ...post,
-        id,
-        wordCount,
-        readTime
-      };
-    });
+                // 处理标题，如果标题超过 10 个字，截取前 10 个字并在末尾加上 *
+                let title = post.title.replace(/\s+/g, '')
+                if (title.length > 10) {
+                    title = title.slice(0, 10) + '*';
+                }
 
-    // 根据创建时间排序
-    // getTime() 获取时间戳
-    processedPosts.sort((a, b) => b.date.getTime() - a.date.getTime());
+                // 生成 ID
+                const id = `${dataForId}-${title}`;
 
-    // 更新 posts
-    posts.value = processedPosts;
-  }
+                // 计算字数和阅读时间（如果 parseMarkdown 中没有计算的话）
+                const wordCount = post.wordCount || (post.content?.split(/\s+/).length || 0);
+                const readTime = post.readTime || Math.ceil(wordCount / 400);
 
-  return {
-    posts,
-    fetchPosts
-  }
+                return {
+                    // 扩展运算符 [...posts]，作用是创建 posts 数组的一个浅拷贝。
+                    ...post,
+                    id,
+                    wordCount,
+                    readTime
+                };
+            });
+
+            // 根据创建时间排序
+            // getTime() 获取时间戳
+            processedPosts.sort((a, b) => b.date.getTime() - a.date.getTime());
+
+            // 更新 posts
+            posts.value = processedPosts;
+
+        } catch (error) {
+            console.error('Error fetching posts:', error)
+            // 如果读取文件失败，可以选择使用 mock 数据作为后备
+            // posts.value = []
+        }
+    }
+
+    /**
+   * 根据 slug 获取单篇文章
+   */
+    const getPostBySlug = (slug: string): Post | undefined => {
+        return posts.value.find(post => post.slug === slug)
+    }
+
+    /**
+   * 根据分类获取文章列表
+   */
+    const getPostsByCategory = (category: string): Post[] => {
+        return posts.value.filter(post => post.category === category)
+    }
+
+    /**
+     * 根据标签获取文章列表
+     */
+    const getPostsByTag = (tag: string): Post[] => {
+        return posts.value.filter(post =>
+            post.tags?.includes(tag)
+        )
+    }
+
+    /**
+    * 获取特色文章
+    */
+    const getFeaturedPosts = (): Post[] => {
+        return posts.value.filter(post => post.featured)
+    }
+
+    /**
+     * 获取所有分类及其对应文章数量
+     */
+    const getCategories = (): { categoryName: string; count: number }[] => {
+        const categoryCount: Record<string, number> = {}
+
+        posts.value.forEach(post => {
+            if (post.category) {
+                categoryCount[post.category] = (categoryCount[post.category] || 0) + 1
+            }
+        })
+
+        return Object.entries(categoryCount).map(([categoryName, count]) => ({
+            categoryName,
+            count
+        }))
+    }
+
+    /**
+     * 获取所有标签和对应的数量
+     */
+    const getTags = (): { tagName: string; count: number }[] => {
+        const tagCount: Record<string, number> = {}
+        posts.value.forEach(post => {
+            post.tags?.forEach(tag => {
+                tagCount[tag] = (tagCount[tag] || 0) + 1
+            })
+        })
+        return Object.entries(tagCount).map(([tagName, count]) => ({
+            tagName,
+            count
+        }))
+    }
+
+    return {
+        // 状态
+        posts,
+
+        // 方法
+        fetchPosts,
+        getPostBySlug,
+        getPostsByCategory,
+        getPostsByTag,
+        getFeaturedPosts,
+        getCategories,
+        getTags
+    }
 })
 
 export { formatDate, usePostStore }

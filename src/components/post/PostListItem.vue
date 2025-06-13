@@ -9,7 +9,7 @@
             <router-link v-if="post.thumbnail" :to="`/archives/${post.id}`"
                 class="h-full min-w-16 max-w-36 sm:max-w-48">
                 <img class="rounded-md object-cover transition-all hover:scale-105 hover:shadow-md"
-                    :src="post.path + post.thumbnail" :alt="post.thumbnail_alt" />
+                    :src="post.thumbnail" :alt="post.thumbnail_alt" />
             </router-link>
 
             <div class="flex flex-col gap-1">
@@ -69,7 +69,7 @@
 import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import TagList from '@/components/post/PostTag.vue'
-import type { Post } from '@/stores/post'
+import type { Post } from '@/types/post'
 import { formatDate } from '@/stores/post'
 import { useHeaderStore } from '@/stores/useConfig'
 

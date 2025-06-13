@@ -14,23 +14,26 @@
                 pointer-events-none  禁用鼠标事件，这会禁用 2025 年份背景字样响应鼠标事件，避免因此导致无法点击标题链接
             -->
             <div v-if="shouldShowYear(post)" class="relative pointer-events-none h-[30px]">
-                <div class="absolute -top-6 w-[100%]">
+                <div class="absolute -top-6 w-[100%] text-center">
                     <p
-                        class="text-center text-clip overflow-hidden text-9xl font-extrabold text-[var(--c-theme)] opacity-10 dark:opacity-20">
+                        class="inline-block translate-x-20 text-clip overflow-hidden text-9xl font-extrabold text-[var(--c-theme)] opacity-10 dark:opacity-20">
                         {{ getYear(post.date) }}
                     </p>
                 </div>
             </div>
 
             <!-- 文章项 -->
-            <PostListItem :post="post" />
+            <div class="w-full">
+                <PostListItem :post="post" />
+            </div>
+
         </template>
     </section>
 </template>
 
 <script setup lang="ts">
 import PostListItem from './PostListItem.vue'
-import type { Post } from '@/stores/post'
+import type { Post } from '@/types/post'
 
 const props = defineProps<{
     posts: Post[]

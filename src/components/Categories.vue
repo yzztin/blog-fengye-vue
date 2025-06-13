@@ -7,7 +7,7 @@
                 <p>Category: {{ currentCategory }}</p>
             </span>
         </div>
-        <PostList :posts="categoryPosts" />
+        <PostList :posts="postStore.getPostsByCategory(currentCategory)" />
     </div>
 
     <!-- 当显示所有分类时 -->
@@ -17,7 +17,7 @@
             <h2 class="font-bold text-2xl">Categories</h2>
         </div>
         <div class="mt-2 flex flex-col">
-            <router-link v-for="(category, index) in categories" :key="index"
+            <router-link v-for="(category, index) in postStore.getCategories()" :key="index"
                 :to="`/categories/${category.categoryName}`" class="py-2 group">
                 <div class="flex flex-row gap-1 group-hover:translate-x-2 transition-transform group-hover:underline">
                     <p>{{ category.categoryName }}</p>
@@ -58,29 +58,29 @@ const isCategoryPage = computed(() => route.path.startsWith('/categories/'))
 // 当前分类
 const currentCategory = computed(() => {
     if (isCategoryPage.value) {
-        return route.params.category as string;
+        return route.params.categoryName as string;
     }
     return '';
 })
 
 // 所有分类
-const categories = computed(() => {
-    // 获取所有分类并去重
-    const categories = [...new Set(postStore.posts.map((post) => post.category))];
+// const categories = computed(() => {
+//     // 获取所有分类并去重
+//     const categories = [...new Set(postStore.posts.map((post) => post.category))];
 
-    // 为每个分类统计文章数量
-    const categoryCount = categories.map((categoryName) => ({
-        categoryName,
-        count: postStore.posts.filter((post) => post.category === categoryName).length,
-    }));
+//     // 为每个分类统计文章数量
+//     const categoryCount = categories.map((categoryName) => ({
+//         categoryName,
+//         count: postStore.posts.filter((post) => post.category === categoryName).length,
+//     }));
 
-    return categoryCount;
-})
+//     return categoryCount;
+// })
 
 // 获取某个分类的所有文章
-const categoryPosts = computed(() => {
-    if (!currentCategory.value) return [];
-    return postStore.posts.filter((post) => post.category === currentCategory.value);
-})
+// const categoryPosts = computed(() => {
+//     if (!currentCategory.value) return [];
+//     return postStore.posts.filter((post) => post.category === currentCategory.value);
+// })
 
 </script>

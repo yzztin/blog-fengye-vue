@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import PostList from '@/components/post/PostList.vue'
-import Paginator from '@/components/post/Paginator.vue';
+import Paginator from '@/components/Paginator.vue';
 import type { PageInfo } from '@/types/pageInfo'
 import { usePostStore } from '@/stores/post'
 

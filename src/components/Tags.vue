@@ -18,7 +18,7 @@
                 {{ currentTag }}
             </div>
         </div>
-        <PostList :posts="tagPosts" />
+        <PostList :posts="postStore.getPostsByTag(currentTag)" />
     </div>
 
     <!-- 显示所有标签 -->
@@ -28,7 +28,7 @@
             <h2 class="font-bold text-2xl">Tags</h2>
         </div>
         <div class="tags-container flex flex-wrap gap-1 mt-2">
-            <router-link v-for="(tag, index) in tags" :key="index" :to="`/tags/${tag.tagName}`" class="
+            <router-link v-for="(tag, index) in postStore.getTags()" :key="index" :to="`/tags/${tag.tagName}`" class="
                 tag flex flex-row items-center text-[16px] px-[8px] py-[2px] 
                 rounded-full drop-shadow-md border-[1px] border-[var(--c-theme)] 
                 text-[var(--c-theme)] bg-[var(--c-0)] dark:bg-[var(--c-0)] 
@@ -67,7 +67,6 @@ onMounted(async () => {
 })
 
 const isTagPage = computed(() => route.path.startsWith('/tags/'))
-console.log("isTagPage", isTagPage)
 
 // 当前标签
 const currentTag = computed(() => {
@@ -75,28 +74,6 @@ const currentTag = computed(() => {
         return route.params.tag as string;
     }
     return '';
-})
-
-// 所有标签
-const tags = computed(() => {
-    // 获取所有标签并展平为一维数组
-    const allTags = postStore.posts.flatMap(post => post.tags || []);
-    // 去重
-    const uniqueTags = [...new Set(allTags)];
-
-    // 为每个标签统计文章数量
-    const tagCount = uniqueTags.map((tagName) => ({
-        tagName,
-        count: postStore.posts.filter((post) => post.tags?.includes(tagName)).length,
-    }));
-
-    return tagCount;
-})
-
-// 获取某个标签的所有文章
-const tagPosts = computed(() => {
-    if (!currentTag.value) return [];
-    return postStore.posts.filter(post => post.tags?.includes(currentTag.value));
 })
 
 </script>

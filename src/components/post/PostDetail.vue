@@ -84,7 +84,7 @@
 import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useRoute } from 'vue-router'
-import type { Post } from '@/stores/post'
+import type { Post } from '@/types/post'
 import { usePostStore, formatDate } from '@/stores/post'
 import TagList from '@/components/post/PostTag.vue'
 // import TableOfContents from '@/components/post/TableOfContents.vue'

@@ -13,8 +13,10 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src')  // resolve() 表示合并目录得到一个绝对路径
     },
-    // alias: {
-    //   '@': '/src'
-    // },
   },
+  assetsInclude: ['**/*.md'], // 将 .md 文件视为静态资源
+  // 确保 glob 导入工作正常
+  optimizeDeps: {
+    exclude: ['@/assets/_posts/*.md']
+  }
 })
