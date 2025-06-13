@@ -63,19 +63,21 @@ function parseFrontMatter(content: string): { data: any, content: string } {
 /**
  * 解析 Markdown 文件内容
  */
-export function parseMarkdown(content: string, slug: string): Post {
+export function parseMarkdown(content: string): Post {
     const { data, content: markdownContent } = parseFrontMatter(content)
     const frontMatter = data as PostFrontMatter
 
     // 解析 Markdown 为 HTML
     const htmlContent = marked(markdownContent)
 
+    // console.log("htmlContent", htmlContent)
+
     // 计算字数和阅读时间
     const wordCount = markdownContent.split(/\s+/).length
     const readTime = Math.ceil(wordCount / 400)
 
     return {
-        title: frontMatter.title || '无标题',
+        title: frontMatter.title || 'no title',
         date: frontMatter.date ? new Date(frontMatter.date) : new Date(),
         updated: frontMatter.updated ? new Date(frontMatter.updated) : undefined,
         excerpt: frontMatter.excerpt,
@@ -87,15 +89,7 @@ export function parseMarkdown(content: string, slug: string): Post {
         thumbnail_alt: frontMatter.thumbnail_alt,
         wordCount,
         readTime,
-        slug
     }
-}
-
-/**
- * 从文件名生成 slug
- */
-export function generateSlug(filename: string): string {
-    return filename.replace(/\.md$/, '')
 }
 
 /**

@@ -14,7 +14,6 @@ export interface Post {
     thumbnail?: string
     thumbnail_alt?: string
     updated?: Date
-    slug?: string // 文件名（不含扩展名）
 }
 
 export interface PostFrontMatter {

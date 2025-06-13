@@ -4,7 +4,6 @@ import {
     getPostFiles,
     readPostFile,
     parseMarkdown,
-    generateSlug
 } from '@/plugins/md'
 import type { Post } from '@/types/post'
 
@@ -27,23 +26,14 @@ const usePostStore = defineStore('post', () => {
 
             // 读取并解析每个文章文件
             const postPromises = filenames.map(async (filename) => {
-                try {
-                    const content = await readPostFile(filename)
-                    const slug = generateSlug(filename)
-                    return parseMarkdown(content, slug)
-                } catch (err) {
-                    console.error(`Error processing ${filename}:`, err)
-                    return null
-                }
+                const content = await readPostFile(filename)
+                return parseMarkdown(content)
             })
 
             const rawPosts = await Promise.all(postPromises)
 
-            // 过滤掉解析失败的文章
-            const validPosts = rawPosts.filter((post): post is Post => post !== null)
-
             // 生成id、统计字数和阅读时间
-            const processedPosts = validPosts.map(post => {
+            const processedPosts = rawPosts.map(post => {
                 // 提取时间戳并格式化为 YYYYMMDD 格式
                 const dataForId = `${post.date.getFullYear()}${String(post.date.getMonth() + 1).padStart(2, '0')}${String(post.date.getDate()).padStart(2, '0')}`;
 
@@ -81,13 +71,6 @@ const usePostStore = defineStore('post', () => {
             // 如果读取文件失败，可以选择使用 mock 数据作为后备
             // posts.value = []
         }
-    }
-
-    /**
-   * 根据 slug 获取单篇文章
-   */
-    const getPostBySlug = (slug: string): Post | undefined => {
-        return posts.value.find(post => post.slug === slug)
     }
 
     /**
@@ -153,7 +136,6 @@ const usePostStore = defineStore('post', () => {
 
         // 方法
         fetchPosts,
-        getPostBySlug,
         getPostsByCategory,
         getPostsByTag,
         getFeaturedPosts,

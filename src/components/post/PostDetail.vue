@@ -54,7 +54,7 @@
         </header>
 
         <!-- 目录 -->
-        <Toc v-if="post.content" :content="post.content" />
+        <!-- <Toc v-if="post.content" :content="post.content" /> -->
 
         <!-- 文章内容 -->
         <article class="post-content prose m-auto dark:prose-invert" v-html="post.content"></article>
@@ -81,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useRoute } from 'vue-router'
 import type { Post } from '@/types/post'
@@ -94,13 +94,29 @@ import TagList from '@/components/post/PostTag.vue'
 const route = useRoute()
 const postStore = usePostStore()
 
+// if (postStore.posts.length === 0) {
+//     await postStore.fetchPosts()
+// }
+
+
 const post = computed(() => {
+    console.log("1111", route.path)
     if (route.path.startsWith('/archives/')) {
         const archiveId = route.params.archive as string
-        return postStore.posts.find(post => post.id === archiveId) as Post;
+        console.log("2222", archiveId)
+        console.log("leng",)
+        const postDetail = postStore.posts.find(post => post.id === archiveId)
+        console.log("3333", postDetail)
+        return postDetail as Post;
     }
     return {} as Post
 })
+
+// onMounted(async () => {
+//     if (postStore.posts.length === 0) {
+//         await postStore.fetchPosts()
+//     }
+// })
 
 </script>
 
