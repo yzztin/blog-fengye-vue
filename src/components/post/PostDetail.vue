@@ -1,7 +1,5 @@
 <!-- 单篇文章的详细信息 -->
 <template>
-    <!-- <FancyboxGallery />
-    <TableOfContents /> -->
     <section class="px-6 max-w-prose mx-auto md:px-0">
         <!-- 文章头部 -->
         <header class="py-4">
@@ -81,10 +79,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useRoute } from 'vue-router'
 import type { Post } from '@/types/post'
+import { createEmptyPost } from '@/types/post'
 import { usePostStore, formatDate } from '@/stores/post'
 import TagList from '@/components/post/PostTag.vue'
 // import TableOfContents from '@/components/post/TableOfContents.vue'
@@ -93,30 +92,18 @@ import TagList from '@/components/post/PostTag.vue'
 
 const route = useRoute()
 const postStore = usePostStore()
-
-// if (postStore.posts.length === 0) {
-//     await postStore.fetchPosts()
-// }
+const post = ref<Post>(createEmptyPost())
 
 
-const post = computed(() => {
-    console.log("1111", route.path)
-    if (route.path.startsWith('/archives/')) {
-        const archiveId = route.params.archive as string
-        console.log("2222", archiveId)
-        console.log("leng",)
-        const postDetail = postStore.posts.find(post => post.id === archiveId)
-        console.log("3333", postDetail)
-        return postDetail as Post;
+onMounted(async () => {
+    const archiveId = route.params.archive as string
+
+    if (postStore.posts.length === 0) {
+        await postStore.fetchPosts()
     }
-    return {} as Post
-})
 
-// onMounted(async () => {
-//     if (postStore.posts.length === 0) {
-//         await postStore.fetchPosts()
-//     }
-// })
+    post.value = postStore.getPostById(archiveId) ?? createEmptyPost()
+})
 
 </script>
 

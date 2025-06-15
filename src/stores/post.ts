@@ -18,59 +18,59 @@ const usePostStore = defineStore('post', () => {
 
     // 获取文章列表
     const fetchPosts = async () => {
-        try {
-            // 获取所有文章文件名
-            const filenames = await getPostFiles()
+        // 获取所有文章文件名
+        const filenames = await getPostFiles()
 
-            console.log('filename', filenames)
+        console.log('filename', filenames)
 
-            // 读取并解析每个文章文件
-            const postPromises = filenames.map(async (filename) => {
-                const content = await readPostFile(filename)
-                return parseMarkdown(content)
-            })
+        // 读取并解析每个文章文件
+        const postPromises = filenames.map(async (filename) => {
+            const content = await readPostFile(filename)
+            return parseMarkdown(content)
+        })
 
-            const rawPosts = await Promise.all(postPromises)
+        const rawPosts = await Promise.all(postPromises)
 
-            // 生成id、统计字数和阅读时间
-            const processedPosts = rawPosts.map(post => {
-                // 提取时间戳并格式化为 YYYYMMDD 格式
-                const dataForId = `${post.date.getFullYear()}${String(post.date.getMonth() + 1).padStart(2, '0')}${String(post.date.getDate()).padStart(2, '0')}`;
+        // 生成id、统计字数和阅读时间
+        const processedPosts = rawPosts.map(post => {
+            // 提取时间戳并格式化为 YYYYMMDD 格式
+            const dataForId = `${post.date.getFullYear()}${String(post.date.getMonth() + 1).padStart(2, '0')}${String(post.date.getDate()).padStart(2, '0')}`;
 
-                // 处理标题，如果标题超过 10 个字，截取前 10 个字并在末尾加上 *
-                let title = post.title.replace(/\s+/g, '')
-                if (title.length > 10) {
-                    title = title.slice(0, 10) + '*';
-                }
+            // 处理标题，如果标题超过 10 个字，截取前 10 个字并在末尾加上 *
+            let title = post.title.replace(/\s+/g, '')
+            if (title.length > 10) {
+                title = title.slice(0, 10) + '*';
+            }
 
-                // 生成 ID
-                const id = `${dataForId}-${title}`;
+            // 生成 ID
+            const id = `${dataForId}-${title}`;
 
-                // 计算字数和阅读时间（如果 parseMarkdown 中没有计算的话）
-                const wordCount = post.wordCount || (post.content?.split(/\s+/).length || 0);
-                const readTime = post.readTime || Math.ceil(wordCount / 400);
+            // 计算字数和阅读时间（如果 parseMarkdown 中没有计算的话）
+            const wordCount = post.wordCount || (post.content?.split(/\s+/).length || 0);
+            const readTime = post.readTime || Math.ceil(wordCount / 400);
 
-                return {
-                    // 扩展运算符 [...posts]，作用是创建 posts 数组的一个浅拷贝。
-                    ...post,
-                    id,
-                    wordCount,
-                    readTime
-                };
-            });
+            return {
+                // 扩展运算符 [...posts]，作用是创建 posts 数组的一个浅拷贝。
+                ...post,
+                id,
+                wordCount,
+                readTime
+            };
+        });
 
-            // 根据创建时间排序
-            // getTime() 获取时间戳
-            processedPosts.sort((a, b) => b.date.getTime() - a.date.getTime());
+        // 根据创建时间排序
+        // getTime() 获取时间戳
+        processedPosts.sort((a, b) => b.date.getTime() - a.date.getTime());
 
-            // 更新 posts
-            posts.value = processedPosts;
+        // 更新 posts
+        posts.value = processedPosts;
+    }
 
-        } catch (error) {
-            console.error('Error fetching posts:', error)
-            // 如果读取文件失败，可以选择使用 mock 数据作为后备
-            // posts.value = []
-        }
+    /**
+   * 根据 ID 获取文章列表
+   */
+    function getPostById(id: string): Post | undefined {
+        return posts.value.find(post => post.id === id)
     }
 
     /**
@@ -135,6 +135,7 @@ const usePostStore = defineStore('post', () => {
         posts,
 
         // 方法
+        getPostById,
         fetchPosts,
         getPostsByCategory,
         getPostsByTag,

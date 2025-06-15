@@ -27,3 +27,23 @@ export interface PostFrontMatter {
     thumbnail?: string
     thumbnail_alt?: string
 }
+
+// 给定 Post 默认值
+export function createEmptyPost(): Post {
+    return {
+        title: '',
+        date: new Date(),
+        excerpt: '',
+        wordCount: 0,
+        readTime: 0,
+        tags: [],
+        category: '',
+        featured: false,
+        path: '',
+        content: '',
+        thumbnail: '',
+        thumbnail_alt: '',
+        updated: new Date(),
+        id: '', // 虽然是可选，但加上可以防止 undefined
+    }
+}
