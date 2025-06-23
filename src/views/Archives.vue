@@ -43,9 +43,7 @@ const updatePage = (newPage: number) => {
 };
 
 onMounted(async () => {
-    console.log("调用 onMounted")
     await postStore.fetchPosts()
-    console.log('Posts 结果:', postStore.posts)
 })
 
 </script>

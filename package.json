@@ -11,6 +11,7 @@
   "dependencies": {
     "@fancyapps/ui": "^5.0.36",
     "@iconify/vue": "^5.0.0",
+    "@tailwindcss/typography": "^0.5.16",
     "@vueuse/core": "^13.3.0",
     "gray-matter": "^4.0.3",
     "marked": "^15.0.12",

@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, computed } from 'vue';
+import { computed } from 'vue';
 import { Icon } from '@iconify/vue'
 import type { PageInfo } from '@/types/pageInfo';
 

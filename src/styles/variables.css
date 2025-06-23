@@ -4,7 +4,7 @@
   --c-theme-1: #bed5f9;
   --c-theme: #4f90e6;
   --c-theme-2: #3058b6;
-  
+
   /* 灰度色阶 */
   --c-0: #ffffff;
   --c-10: #f6f8fa;
@@ -18,21 +18,21 @@
   --c-80: #374151;
   --c-90: #1f2937;
   --c-100: #111827;
-  
+
   /* 文本和背景 */
   --c-text: #444444;
-  --c-bg-code: #f6f8fa;
+  --c-bg-code: #dbdfe5;
   --c-code-line-number: #bbb;
-  
+
   /* 滚动条 */
   --c-scrollbar: #d9d9d9;
   --c-scrollbar-hover: #bbbbbb;
-  
+
   /* 边框和分割线 */
   --c-border: #d1d7dd;
   --c-sep: #e1e4e8;
   --c-sep-2: #d1d4d8;
-  
+
   /* 其他 */
   --c-code-language: #9ca3af;
   --h-header: 48px;
@@ -63,4 +63,4 @@ html.dark {
   --c-sep: #3f4339;
   --c-sep-2: #818488;
   --c-code-language: #8c939f;
-} 
+}

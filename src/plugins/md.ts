@@ -70,8 +70,6 @@ export function parseMarkdown(content: string): Post {
     // 解析 Markdown 为 HTML
     const htmlContent = marked(markdownContent)
 
-    // console.log("htmlContent", htmlContent)
-
     // 计算字数和阅读时间
     const wordCount = markdownContent.split(/\s+/).length
     const readTime = Math.ceil(wordCount / 400)

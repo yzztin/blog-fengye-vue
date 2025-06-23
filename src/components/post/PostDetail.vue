@@ -92,9 +92,11 @@ import TagList from '@/components/post/PostTag.vue'
 
 const route = useRoute()
 const postStore = usePostStore()
+
+// 在上面 <template> 中，如果直接使用 post.xxx，但是 post 实际上对应的值还没加载的话，会直接导致页面崩溃而不会执行挂载，因此可以先给定一个默认值
 const post = ref<Post>(createEmptyPost())
 
-
+// 通过挂载组件获取数据，如果没有拿到对应的数据，给出定一个默认的数据值
 onMounted(async () => {
     const archiveId = route.params.archive as string
 

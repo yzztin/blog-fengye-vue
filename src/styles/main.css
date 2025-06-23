@@ -1,17 +1,16 @@
-@import './variables.css';
+@import "./variables.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
-
   html,
   body {
     @apply w-full m-0 p-0;
     text-underline-offset: 2px;
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
     transition-duration: 0.2s;
   }
 
@@ -30,6 +29,34 @@
   body {
     @apply bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100;
   }
+
+  html:not(.dark) {
+    --highlight-keyword: #1c6b48;
+    --highlight-background: #f6f8fa;
+    --highlight-comment: #a0ada0;
+    --highlight-foreground: #393a34;
+    --highlight-string: #b56959;
+    --highlight-gutter: #565154;
+    --highlight-class: #2993a3;
+    --highlight-function: #6c7834;
+    --prism-builtin: #ab5959;
+    --prism-property: #b58451;
+    --prism-decorator: #bd8f8f;
+  }
+
+  html.dark {
+    --highlight-keyword: #4d9375;
+    --highlight-background: #111111;
+    --highlight-comment: #758575;
+    --highlight-foreground: #d4cfbf;
+    --highlight-string: #d48372;
+    --highlight-gutter: #869194;
+    --highlight-class: #54b1bf;
+    --highlight-function: #a1b567;
+    --prism-builtin: #858585;
+    --prism-property: #dd8e6e;
+    --prism-decorator: #bd8f8f;
+  }
 }
 
 @layer components {
@@ -38,23 +65,107 @@
   }
 
   .prose {
-    @apply text-[var(--c-text)];
-  }
+    color: var(--c-text);
 
-  .prose h2 {
-    @apply mt-4 mb-2;
-  }
+    h2 {
+      @apply mt-4 mb-2;
+    }
 
-  .prose p {
-    @apply my-3 leading-relaxed;
-  }
+    p {
+      @apply my-3 leading-relaxed;
+    }
 
-  .prose code {
-    @apply bg-[var(--c-bg-code)] rounded px-1 py-0.5 text-sm font-normal;
-  }
+    li,
+    ul,
+    ol,
+    input {
+      @apply m-0;
+    }
 
-  .prose a {
-    @apply text-[var(--c-theme)] no-underline hover:underline;
+    ol p {
+      @apply m-0;
+    }
+
+    /* 行内代码样式 */
+    code {
+      background-color: var(--c-bg-code);
+      border-radius: 4px;
+      padding: 0.2em 0.3em;
+      font-size: 0.9em;
+      font-weight: 400;
+    }
+
+    code::before,
+    code::after {
+      content: "";
+    }
+
+    a {
+      color: var(--c-theme);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    blockquote::before {
+      content: "";
+    }
+
+    .footnotes {
+      font-size: 0.8rem;
+    }
+
+    .footnote-backref {
+      text-decoration: none;
+      border-radius: 4px;
+      padding: 1px;
+    }
+
+    .footnote-backref:hover {
+      text-decoration: underline;
+      background-color: var(--c-theme);
+      color: var(--c-0);
+    }
+
+    .fancybox-img img {
+      @apply mb-2 mx-auto block;
+    }
+
+    .fancybox-title,
+    .fancybox-alt {
+      @apply text-center text-sm text-gray-400 block w-full;
+      margin: 0;
+      padding: 0;
+      font-style: normal;
+    }
+
+    li.task-list-item {
+      list-style-type: none;
+    }
+
+    li.task-list-item .task-list-item-checkbox {
+      margin: 0 0.2em 0.25em -1.6em;
+    }
+
+    li.task-list-item .task-list-item-checkbox input:checked {
+      color: var(--c-theme);
+      text-decoration: line-through;
+    }
+
+    .post-excerpt {
+      pointer-events: none;
+    }
+
+    .post-excerpt a {
+      text-decoration: underline;
+    }
+
+    .post-excerpt p {
+      margin: 2px 0;
+      padding: 2px 0;
+    }
   }
 
   .back-to-top {
@@ -67,6 +178,87 @@
 
   .back-to-top.back-to-top-on {
     @apply bottom-8;
+  }
+
+  .post-content {
+    @apply border-b-0;
+
+    hr {
+      @apply bg-gray-300 h-px my-6;
+    }
+
+    hr.footnotes-sep {
+      background-color: var(--c-sep);
+      margin-bottom: 1rem;
+      margin-right: 50%;
+    }
+
+    blockquote {
+      @apply pl-2 border-l-4 border-gray-400;
+    }
+
+    blockquote p {
+      margin: 0 0.25rem;
+      font-style: normal;
+      color: #aaa;
+    }
+
+    code::before {
+      content: "";
+    }
+  }
+
+  .post-container .footnote-ref {
+    display: none;
+  }
+
+  pre {
+    @apply p-2 overflow-auto;
+    background: var(--highlight-background);
+    color: var(--highlight-foreground);
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  }
+
+  pre code {
+    padding: 0;
+  }
+
+  /* Syntax highlight tokens (usually from Prism.js or Highlight.js) */
+  pre .comment {
+    color: var(--highlight-comment);
+  }
+
+  pre .string {
+    color: var(--highlight-string);
+  }
+
+  pre .keyword,
+  pre .doctag {
+    color: var(--highlight-keyword);
+  }
+
+  pre .class_ {
+    color: var(--highlight-class);
+  }
+
+  pre .function_ {
+    color: var(--highlight-function);
+  }
+
+  pre .tag > .name {
+    color: var(--prism-builtin);
+  }
+
+  pre .attr {
+    color: var(--prism-property);
+  }
+
+  pre .meta {
+    color: var(--prism-decorator);
+  }
+
+  pre .params {
+    color: var(--prism-decorator);
   }
 }
 
@@ -96,6 +288,6 @@
   }
 }
 
-[data-animation-controller=false] [data-animate] {
+[data-animation-controller="false"] [data-animate] {
   animation: none;
 }
