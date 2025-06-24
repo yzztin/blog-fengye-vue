@@ -55,7 +55,8 @@
         <!-- <Toc v-if="post.content" :content="post.content" /> -->
 
         <!-- 文章内容 -->
-        <article class="post-content prose m-auto dark:prose-invert" v-html="post.content"></article>
+        <!-- <article class="post-content prose m-auto dark:prose-invert" v-html="post.content"></article> -->
+        <MarkdownRenderer :source="post.content" />
 
         <!-- 上一篇/下一篇导航 -->
         <!-- <div class="flex justify-between mt-4 pt-4 border-t border-[var(--c-sep)] text-sm gap-2 text-[var(--c-50)]">
@@ -86,6 +87,7 @@ import type { Post } from '@/types/post'
 import { createEmptyPost } from '@/types/post'
 import { usePostStore, formatDate } from '@/stores/post'
 import TagList from '@/components/post/PostTag.vue'
+import MarkdownRenderer from '@/components/MarkdownRenderer.vue'
 // import TableOfContents from '@/components/post/TableOfContents.vue'
 // import FancyboxGallery from '@/components/post/FancyboxGallery.vue'
 

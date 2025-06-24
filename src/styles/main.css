@@ -31,10 +31,6 @@
 
 /* 文章内容相关，放在 components 层 */
 @layer components {
-  .post-content {
-    /* prose 已经包含大部分排版，补充自定义 */
-  }
-
   .post-content hr.footnotes-sep {
     @apply mb-4;
     background-color: var(--c-sep);
@@ -50,6 +46,12 @@
   .post-content blockquote p {
     @apply m-0;
     color: var(--c-50);
+  }
+
+  /* 多行代码块的颜色 */
+  .prose pre {
+    background: var(--highlight-background);
+    color: var(--highlight-foreground);
   }
 
   li.task-list-item {

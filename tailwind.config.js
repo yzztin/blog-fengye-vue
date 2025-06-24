@@ -90,7 +90,7 @@ export default {
               },
             },
 
-            // 代码样式
+            // 单行代码样式
             code: {
               backgroundColor: 'var(--c-bg-code)',
               borderRadius: '4px',

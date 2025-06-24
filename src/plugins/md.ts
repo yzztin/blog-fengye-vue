@@ -64,11 +64,12 @@ function parseFrontMatter(content: string): { data: any, content: string } {
  * 解析 Markdown 文件内容
  */
 export function parseMarkdown(content: string): Post {
+    // 将 content 重命名为 markdownContent
     const { data, content: markdownContent } = parseFrontMatter(content)
     const frontMatter = data as PostFrontMatter
 
     // 解析 Markdown 为 HTML
-    const htmlContent = marked(markdownContent)
+    // const htmlContent = marked(markdownContent)
 
     // 计算字数和阅读时间
     const wordCount = markdownContent.split(/\s+/).length
@@ -79,7 +80,8 @@ export function parseMarkdown(content: string): Post {
         date: frontMatter.date ? new Date(frontMatter.date) : new Date(),
         updated: frontMatter.updated ? new Date(frontMatter.updated) : undefined,
         excerpt: frontMatter.excerpt,
-        content: htmlContent,
+        // content: htmlContent,
+        content: markdownContent, // 只返回原始 md 数据
         category: frontMatter.category,
         tags: frontMatter.tags || [],
         featured: frontMatter.featured || false,
