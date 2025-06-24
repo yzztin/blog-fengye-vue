@@ -96,7 +96,8 @@ export function parseMarkdown(content: string): Post {
 export async function getPostFiles(): Promise<string[]> {
     // 使用 Vite 的 import.meta.glob 动态导入
     const modules = import.meta.glob('/src/assets/_posts/*.md', {
-        as: 'raw',
+        query: '?raw',
+        import: 'default',
         eager: false
     })
 
@@ -112,7 +113,8 @@ export async function getPostFiles(): Promise<string[]> {
 export async function readPostFile(filename: string): Promise<string> {
     try {
         const modules = import.meta.glob('/src/assets/_posts/*.md', {
-            as: 'raw',
+            query: '?raw',
+            import: 'default',
             eager: false
         })
 

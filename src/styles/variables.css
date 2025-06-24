@@ -36,6 +36,19 @@
   /* 其他 */
   --c-code-language: #9ca3af;
   --h-header: 48px;
+
+  /* 代码高亮颜色 - 浅色主题 */
+  --highlight-keyword: #1c6b48;
+  --highlight-background: #f6f8fa;
+  --highlight-comment: #a0ada0;
+  --highlight-foreground: #393a34;
+  --highlight-string: #b56959;
+  --highlight-gutter: #565154;
+  --highlight-class: #2993a3;
+  --highlight-function: #6c7834;
+  --prism-builtin: #ab5959;
+  --prism-property: #b58451;
+  --prism-decorator: #bd8f8f;
 }
 
 /* 暗色主题 */
@@ -63,4 +76,17 @@ html.dark {
   --c-sep: #3f4339;
   --c-sep-2: #818488;
   --c-code-language: #8c939f;
+
+  /* 代码高亮颜色 - 深色主题 */
+  --highlight-keyword: #4d9375;
+  --highlight-background: #111111;
+  --highlight-comment: #758575;
+  --highlight-foreground: #d4cfbf;
+  --highlight-string: #d48372;
+  --highlight-gutter: #869194;
+  --highlight-class: #54b1bf;
+  --highlight-function: #a1b567;
+  --prism-builtin: #858585;
+  --prism-property: #dd8e6e;
+  --prism-decorator: #bd8f8f;
 }
