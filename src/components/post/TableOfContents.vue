@@ -13,18 +13,28 @@ const tocOptions = {
     contentSelector: '.post-content',
     headingSelector: 'h1, h2, h3',
     hasInnerContainers: true,
+    listClass: 'toc-list',
 }
 
 function addHeadingIds() {
     const contentElement = document.querySelector('.post-content')
     if (contentElement) {
+        const usedIds = new Set()
         const headings = contentElement.querySelectorAll('h1, h2, h3')
-        headings.forEach((heading, index) => {
+        headings.forEach((heading) => {
             if (!heading.id) {
-                // 用标题文本生成唯一ID
-                const text = heading.textContent?.trim() || ''
-                const hash = btoa(unescape(encodeURIComponent(text))).replace(/=/g, '').slice(0, 8)
-                heading.id = `heading-${hash}-${index}`
+                const rawText = heading.textContent?.trim() || ''
+                let slug = rawText.replace(/\s+/g, '-') // 空格转连字符
+
+                // 避免重复 slug
+                let originalSlug = slug
+                let count = 1
+                while (usedIds.has(slug)) {
+                    slug = `${originalSlug}-${count++}`
+                }
+                usedIds.add(slug)
+
+                heading.id = slug
             }
         })
         return headings.length > 0

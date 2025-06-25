@@ -56,11 +56,11 @@
 
   /* 目录样式 */
   .toc-list > li {
-    @apply mt-1 mb-1;
+    @apply mt-1 mb-1 !important;
   }
 
   .toc-list > ol {
-    @apply mt-1;
+    @apply mt-1 !important;
   }
 
   li.task-list-item {
