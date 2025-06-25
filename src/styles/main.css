@@ -54,6 +54,15 @@
     color: var(--highlight-foreground);
   }
 
+  /* 目录样式 */
+  .toc-list > li {
+    @apply mt-1 mb-1;
+  }
+
+  .toc-list > ol {
+    @apply mt-1;
+  }
+
   li.task-list-item {
     list-style-type: none;
   }

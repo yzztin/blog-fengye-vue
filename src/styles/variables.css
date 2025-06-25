@@ -21,7 +21,7 @@
 
   /* 文本和背景 */
   --c-text: #444444;
-  --c-bg-code: #dbdfe5;
+  --c-bg-code: #eef0ef;
   --c-code-line-number: #bbb;
 
   /* 滚动条 */
@@ -39,7 +39,7 @@
 
   /* 代码高亮颜色 - 浅色主题 */
   --highlight-keyword: #1c6b48;
-  --highlight-background: #f6f8fa;
+  --highlight-background: #eef0ef;
   --highlight-comment: #a0ada0;
   --highlight-foreground: #393a34;
   --highlight-string: #b56959;

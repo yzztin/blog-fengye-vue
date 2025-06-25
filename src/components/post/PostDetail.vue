@@ -52,7 +52,16 @@
         </header>
 
         <!-- 目录 -->
-        <!-- <Toc v-if="post.content" :content="post.content" /> -->
+        <!--
+        TableOfContents 组件本身并不“知道”文章内容是什么，也不会去解析任何字符串。
+        它利用了DOM操作和第三方库 tocbot 来实现目录的自动生成。 
+            1. 在 DOM 创建一个空的 <nav> 元素，带有一个关键类名 'post-toc'
+            2. 在文章内容独立渲染的组件中 <article> 元素带有一个关键类名 'post-content'
+            3. 执行 tocbot.init() 函数
+            4. 接着会自动扫描和遍历 .post-content 内部所有的标题标签，组装为一个嵌套的 <ul> 列表
+            5. 得到组装的目录元素
+        -->
+        <TableOfContents />
 
         <!-- 文章内容 -->
         <!-- <article class="post-content prose m-auto dark:prose-invert" v-html="post.content"></article> -->
@@ -88,9 +97,8 @@ import { createEmptyPost } from '@/types/post'
 import { usePostStore, formatDate } from '@/stores/post'
 import TagList from '@/components/post/PostTag.vue'
 import MarkdownRenderer from '@/components/MarkdownRenderer.vue'
-// import TableOfContents from '@/components/post/TableOfContents.vue'
+import TableOfContents from '@/components/post/TableOfContents.vue'
 // import FancyboxGallery from '@/components/post/FancyboxGallery.vue'
-
 
 const route = useRoute()
 const postStore = usePostStore()

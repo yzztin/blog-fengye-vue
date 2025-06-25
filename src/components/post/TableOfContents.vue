@@ -1,61 +1,58 @@
 <template>
     <nav class="post-toc toc text-sm w-40 relative top-32 right-4 opacity-70 hidden lg:block"
-        :style="{ position: 'fixed !important' }"></nav>
+        style="position: fixed !important;"></nav>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, nextTick } from 'vue'
 import tocbot from 'tocbot'
 import 'tocbot/dist/tocbot.css'
 
-interface TocOptions {
-    tocSelector: string
-    contentSelector: string
-    headingSelector: string
-    hasInnerContainers: boolean
-    scrollSmooth: boolean
-    scrollSmoothDuration: number
-    scrollSmoothOffset: number
-}
-
-const tocOptions: TocOptions = {
+const tocOptions = {
     tocSelector: '.post-toc',
     contentSelector: '.post-content',
-    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    headingSelector: 'h1, h2, h3',
     hasInnerContainers: true,
-    scrollSmooth: true,
-    scrollSmoothDuration: 300,
-    scrollSmoothOffset: -100
 }
 
-onMounted(() => {
-    // 初始化 tocbot
-    tocbot.init(tocOptions)
-})
+function addHeadingIds() {
+    const contentElement = document.querySelector('.post-content')
+    if (contentElement) {
+        const headings = contentElement.querySelectorAll('h1, h2, h3')
+        headings.forEach((heading, index) => {
+            if (!heading.id) {
+                // 用标题文本生成唯一ID
+                const text = heading.textContent?.trim() || ''
+                const hash = btoa(unescape(encodeURIComponent(text))).replace(/=/g, '').slice(0, 8)
+                heading.id = `heading-${hash}-${index}`
+            }
+        })
+        return headings.length > 0
+    }
+    return false
+}
 
-// 组件卸载时销毁 tocbot
+async function initToc() {
+    await nextTick()
+    // 销毁旧的 toc
+    tocbot.destroy()
+    // 多次尝试，直到有标题为止
+    let tryCount = 0
+    const tryInit = () => {
+        if (addHeadingIds()) {
+            tocbot.init(tocOptions)
+        } else if (tryCount < 10) {
+            tryCount++
+            setTimeout(tryInit, 200)
+        }
+    }
+    tryInit()
+}
+
+onMounted(initToc)
 onUnmounted(() => {
     tocbot.destroy()
 })
 </script>
 
-<style scoped>
-.post-toc {
-    max-height: calc(100vh - 200px);
-    overflow-y: auto;
-}
-
-/* 自定义滚动条样式 */
-.post-toc::-webkit-scrollbar {
-    width: 4px;
-}
-
-.post-toc::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
-}
-
-.post-toc::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-</style>
+<style scoped></style>
