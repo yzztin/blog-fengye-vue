@@ -61,35 +61,41 @@
             4. 接着会自动扫描和遍历 .post-content 内部所有的标题标签，组装为一个嵌套的 <ul> 列表
             5. 得到组装的目录元素
         -->
-        <TableOfContents />
+        <TableOfContents :source="post.content"/>
 
         <!-- 文章内容 -->
         <!-- <article class="post-content prose m-auto dark:prose-invert" v-html="post.content"></article> -->
         <MarkdownRenderer :source="post.content" />
 
         <!-- 上一篇/下一篇导航 -->
-        <!-- <div class="flex justify-between mt-4 pt-4 border-t border-[var(--c-sep)] text-sm gap-2 text-[var(--c-50)]">
-            <div v-if="post.prev">
-                <a :href="post.prev.path"
-                    class="transition-all flex justify-center hover:-translate-x-1 hover:text-[var(--c-80)]">
-                    <Icon width="20" icon="mingcute:left-fill" data-inline="false" />
-                    {{ post.prev.title }}
-                </a>
+        <!-- 此时点击跳转后响应的还是同一个 Post Detail.vue 组件，因此需要 watch 监视路由变化来切换文章内容展示 -->
+        <div class="flex justify-between mt-4 pt-4 border-t border-[var(--c-sep)] text-sm gap-2 text-[var(--c-50)]">
+            <div class="flex-1">
+                <div v-if="prevPost" class="max-w-fit">
+                    <router-link :to="`/archives/${prevPost.id}`"
+                        class="transition-all flex justify-center hover:-translate-x-1 hover:text-[var(--c-80)]">
+                        <Icon width="20" icon="mingcute:left-fill" data-inline="false" />
+                        {{ prevPost.title }}
+                    </router-link>
+                </div>
             </div>
-            <div v-if="post.next">
-                <a :href="post.next.path"
-                    class="flex justify-center hover:translate-x-1 transition-transform hover:text-[var(--c-100)]">
-                    {{ post.next.title }}
-                    <Icon width="20" icon="mingcute:right-fill" data-inline="false" />
-                </a>
+
+            <div class="flex-1 text-right">
+                <div v-if="nextPost" class="max-w-fit ml-auto">
+                    <router-link :to="`/archives/${nextPost.id}`"
+                        class="flex justify-center hover:translate-x-1 transition-transform hover:text-[var(--c-100)]">
+                        {{ nextPost.title }}
+                        <Icon width="20" icon="mingcute:right-fill" data-inline="false" />
+                    </router-link>
+                </div>
             </div>
-        </div> -->
+        </div>
 
     </section>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useRoute } from 'vue-router'
 import type { Post } from '@/types/post'
@@ -106,6 +112,22 @@ const postStore = usePostStore()
 // 在上面 <template> 中，如果直接使用 post.xxx，但是 post 实际上对应的值还没加载的话，会直接导致页面崩溃而不会执行挂载，因此可以先给定一个默认值
 const post = ref<Post>(createEmptyPost())
 
+// 上下篇文章
+const prevPost = ref<Post | null>(null)
+const nextPost = ref<Post | null>(null)
+
+// 监听 route.params.archive 的变化，并在变化时重新加载对应的文章数据
+watch(() => route.params.archive, async (newId) => {
+    if (!newId) return
+
+    const currentPost = postStore.getPostById(newId as string) ?? createEmptyPost()
+    post.value = currentPost
+
+    const index = postStore.posts.findIndex(p => p.id === newId)
+    prevPost.value = index > 0 ? postStore.posts[index - 1] : null
+    nextPost.value = (index >= 0 && index < postStore.posts.length - 1) ? postStore.posts[index + 1] : null
+})
+
 // 通过挂载组件获取数据，如果没有拿到对应的数据，给出定一个默认的数据值
 onMounted(async () => {
     const archiveId = route.params.archive as string
@@ -115,7 +137,20 @@ onMounted(async () => {
     }
 
     post.value = postStore.getPostById(archiveId) ?? createEmptyPost()
+
+    // 查找当前 post 在列表中的位置
+    const index = postStore.posts.findIndex(p => p.id === archiveId)
+
+    if (index > 0) {
+        prevPost.value = postStore.posts[index - 1]
+    }
+    if (index >= 0 && index < postStore.posts.length - 1) {
+        nextPost.value = postStore.posts[index + 1]
+    }
 })
+
+
+
 
 </script>
 

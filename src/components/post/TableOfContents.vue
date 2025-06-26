@@ -4,9 +4,14 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, nextTick } from 'vue'
+import { onMounted, onUnmounted, nextTick, watch } from 'vue'
 import tocbot from 'tocbot'
 import 'tocbot/dist/tocbot.css'
+
+// 接收 markdown 内容作为触发更新的信号
+const props = defineProps<{
+    source: string
+}>()
 
 const tocOptions = {
     tocSelector: '.post-toc',
@@ -33,7 +38,6 @@ function addHeadingIds() {
                     slug = `${originalSlug}-${count++}`
                 }
                 usedIds.add(slug)
-
                 heading.id = slug
             }
         })
@@ -62,6 +66,11 @@ async function initToc() {
 onMounted(initToc)
 onUnmounted(() => {
     tocbot.destroy()
+})
+
+// 当 props.source 变化时重新初始化目录
+watch(() => props.source, () => {
+    initToc()
 })
 </script>
 
