@@ -61,7 +61,7 @@
             4. 接着会自动扫描和遍历 .post-content 内部所有的标题标签，组装为一个嵌套的 <ul> 列表
             5. 得到组装的目录元素
         -->
-        <TableOfContents :source="post.content"/>
+        <TableOfContents :source="post.content" />
 
         <!-- 文章内容 -->
         <!-- <article class="post-content prose m-auto dark:prose-invert" v-html="post.content"></article> -->
@@ -104,7 +104,7 @@ import { usePostStore, formatDate } from '@/stores/post'
 import TagList from '@/components/post/PostTag.vue'
 import MarkdownRenderer from '@/components/MarkdownRenderer.vue'
 import TableOfContents from '@/components/post/TableOfContents.vue'
-// import FancyboxGallery from '@/components/post/FancyboxGallery.vue'
+import { useFancybox } from '@/plugins/FancyboxInit'
 
 const route = useRoute()
 const postStore = usePostStore()
@@ -115,6 +115,8 @@ const post = ref<Post>(createEmptyPost())
 // 上下篇文章
 const prevPost = ref<Post | null>(null)
 const nextPost = ref<Post | null>(null)
+
+useFancybox(() => post.value.content)
 
 // 监听 route.params.archive 的变化，并在变化时重新加载对应的文章数据
 watch(() => route.params.archive, async (newId) => {
