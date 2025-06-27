@@ -101,6 +101,7 @@ import { useRoute } from 'vue-router'
 import type { Post } from '@/types/post'
 import { createEmptyPost } from '@/types/post'
 import { usePostStore, formatDate } from '@/stores/post'
+import { usePageTitleStore } from '@/stores/pageTitle'
 import TagList from '@/components/post/PostTag.vue'
 import MarkdownRenderer from '@/components/MarkdownRenderer.vue'
 import TableOfContents from '@/components/post/TableOfContents.vue'
@@ -140,6 +141,9 @@ onMounted(async () => {
 
     post.value = postStore.getPostById(archiveId) ?? createEmptyPost()
 
+    // 更改标题
+    usePageTitleStore().updateTitle(post.value.title)
+
     // 查找当前 post 在列表中的位置
     const index = postStore.posts.findIndex(p => p.id === archiveId)
 
@@ -150,9 +154,6 @@ onMounted(async () => {
         nextPost.value = postStore.posts[index + 1]
     }
 })
-
-
-
 
 </script>
 

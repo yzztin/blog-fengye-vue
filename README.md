@@ -59,6 +59,7 @@
 - 2025.6.23-30
 1. 文章创建命令（❌）
 2. 文章显示效果（md、代码块等等）
+3. about
 
 
 ## All Thanks To Our Contributors

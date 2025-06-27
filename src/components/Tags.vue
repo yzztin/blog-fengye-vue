@@ -45,10 +45,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { Icon } from '@iconify/vue';
 import PostList from '@/components/post/PostList.vue'
+import { usePageTitleStore } from '@/stores/pageTitle'
 import { useHeaderStore } from '@/stores/useConfig'
 import { usePostStore } from '@/stores/post'
 
@@ -74,6 +75,12 @@ const currentTag = computed(() => {
         return route.params.tag as string;
     }
     return '';
+})
+
+watch(currentTag, (newVal) => {
+    if (isTagPage.value && newVal) {
+        usePageTitleStore().updateTitle(newVal)
+    }
 })
 
 </script>

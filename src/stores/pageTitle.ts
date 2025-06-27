@@ -2,8 +2,6 @@ import { defineStore } from 'pinia';
 import { useBaseConfig } from '@/stores/useConfig'
 
 
-
-
 export const usePageTitleStore = defineStore('pageTitle', {
     state: () => {
         // 在 state 函数内部使用 store，如果在顶层使用会导致循环依赖问题
@@ -14,10 +12,13 @@ export const usePageTitleStore = defineStore('pageTitle', {
         }
     },
     actions: {
-        updateTitle(title: string) {
-            title = title.charAt(0).toUpperCase() + title.slice(1);  // 首字母大写
-            this.currentTitle = `${title} | ${this.baseTitle}`;
-            document.title = this.currentTitle;
+        updateTitle(title: string | null | undefined) {
+            if (title && title.trim()) {
+                this.currentTitle = `${title} | ${this.baseTitle}`
+            } else {
+                this.currentTitle = this.baseTitle
+            }
+            document.title = this.currentTitle
         }
     }
 })

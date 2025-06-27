@@ -29,10 +29,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import { usePostStore } from '@/stores/post'
+import { usePageTitleStore } from '@/stores/pageTitle'
 import { useHeaderStore } from '@/stores/useConfig'
 import PostList from '@/components/post/PostList.vue'
 
@@ -63,24 +64,10 @@ const currentCategory = computed(() => {
     return '';
 })
 
-// 所有分类
-// const categories = computed(() => {
-//     // 获取所有分类并去重
-//     const categories = [...new Set(postStore.posts.map((post) => post.category))];
-
-//     // 为每个分类统计文章数量
-//     const categoryCount = categories.map((categoryName) => ({
-//         categoryName,
-//         count: postStore.posts.filter((post) => post.category === categoryName).length,
-//     }));
-
-//     return categoryCount;
-// })
-
-// 获取某个分类的所有文章
-// const categoryPosts = computed(() => {
-//     if (!currentCategory.value) return [];
-//     return postStore.posts.filter((post) => post.category === currentCategory.value);
-// })
+watch(currentCategory, (newVal) => {
+    if (isCategoryPage.value && newVal) {
+        usePageTitleStore().updateTitle(newVal)
+    }
+})
 
 </script>

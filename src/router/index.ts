@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import DefaultLayout from '../layouts/DefaultLayout.vue'
-import Home from '../views/Home.vue'
-import { usePageTitleStore } from '../stores/pageTitle'
+import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import Home from '@/views/Home.vue'
+import { usePageTitleStore } from '@/stores/pageTitle'
 
 
 const router = createRouter({
@@ -14,55 +14,53 @@ const router = createRouter({
         {
           path: '',  // 空路径表示与父级路径相同
           name: 'home',
-          component: Home
+          component: Home,
+          meta: { title: '' },
         },
         {
           path: 'archives',
           name: 'archives',
-          component: () => import('../views/Archives.vue')
+          component: () => import('@/views/Archives.vue'),
+          meta: { title: 'Archive' },
         },
         {
           path: 'archives/:archive',
           name: 'archive',
-          component: () => import('../views/ArchiveDetail.vue')
+          component: () => import('@/views/ArchiveDetail.vue'),
         },
         {
           path: 'categories',
           name: 'categories',
-          component: () => import('../views/Categories.vue')
+          component: () => import('@/views/Categories.vue'),
+          meta: { title: 'Category' },
         },
         {
           path: 'categories/:categoryName',
           name: 'category',
-          component: () => import('../views/Categories.vue')
+          component: () => import('@/views/Categories.vue'),
         },
         {
           path: 'tags',
           name: 'tags',
-          component: () => import('../views/Tags.vue')
+          component: () => import('@/views/Tags.vue'),
+          meta: { title: 'Tag' },
         },
         {
           path: 'tags/:tag',
           name: 'tag',
-          component: () => import('../views/Tags.vue')
+          component: () => import('@/views/Tags.vue')
         },
-
       ]
     },
   ]
 })
 
-const updateTitlePaths = ['archives', 'categories', 'tags', 'post']
+router.afterEach((to) => {
+  const titleFromMeta = to.meta.title
 
-router.beforeEach((to, _from, next) => {
-  // 如果 path 在 updateTitlePaths 内，就更新标题
-  const currentPath = to.path.replace(/^\//, '')
-  if (updateTitlePaths.includes(currentPath)) {
-    const pageTitleStore = usePageTitleStore()
-    pageTitleStore.updateTitle(to.name as string)
+  if (typeof titleFromMeta === 'string') {
+    usePageTitleStore().updateTitle(titleFromMeta)
   }
-
-  next()
 })
 
 export default router
