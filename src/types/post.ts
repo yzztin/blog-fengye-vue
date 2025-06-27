@@ -17,6 +17,7 @@ export interface Post {
 }
 
 export interface PostFrontMatter {
+    id?: string
     title: string
     date: string
     updated?: string

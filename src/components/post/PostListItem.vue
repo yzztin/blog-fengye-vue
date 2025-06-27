@@ -79,8 +79,6 @@ const props = defineProps<{
     post: Post
 }>()
 
-console.log("item post", props.post)
-
 // const post = props.post
 
 // 获取 Categories 对应的图标

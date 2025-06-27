@@ -95,7 +95,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, withDefaults } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useRoute } from 'vue-router'
 import type { Post } from '@/types/post'
@@ -106,6 +106,16 @@ import TagList from '@/components/post/PostTag.vue'
 import MarkdownRenderer from '@/components/MarkdownRenderer.vue'
 import TableOfContents from '@/components/post/TableOfContents.vue'
 import { useFancybox } from '@/plugins/FancyboxInit'
+
+// 非强制传参
+interface Props {
+    isPage?: boolean
+    pageId?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    isPage: false,
+})
 
 const route = useRoute()
 const postStore = usePostStore()
@@ -133,13 +143,17 @@ watch(() => route.params.archive, async (newId) => {
 
 // 通过挂载组件获取数据，如果没有拿到对应的数据，给出定一个默认的数据值
 onMounted(async () => {
-    const archiveId = route.params.archive as string
+    const archiveId = route.params.archive
 
     if (postStore.posts.length === 0) {
-        await postStore.fetchPosts()
+        await postStore.fetchPosts(props.isPage)
     }
 
-    post.value = postStore.getPostById(archiveId) ?? createEmptyPost()
+    if (props.isPage) {
+        post.value = postStore.getPostById(props.pageId as string) ?? createEmptyPost()
+    } else {
+        post.value = postStore.getPostById(archiveId as string) ?? createEmptyPost()
+    }
 
     // 更改标题
     usePageTitleStore().updateTitle(post.value.title)

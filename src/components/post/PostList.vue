@@ -41,7 +41,6 @@ const props = defineProps<{
 
 
 const getYear = (date: Date) => {
-    console.log('获取年份，日期:', date)
     return new Date(date).getFullYear()
 }
 

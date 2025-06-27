@@ -20,7 +20,6 @@ const currentPage = ref(1);
 const pageSize = 10;
 
 const postStore = usePostStore()
-console.log("111111111", postStore.posts.length)
 
 // 是否分页
 const isPaginator = computed(() => postStore.posts.length > pageSize);
@@ -45,7 +44,6 @@ const updatePage = (newPage: number) => {
 
 onMounted(async () => {
     await postStore.fetchPosts()
-    console.log("mount done")
 })
 
 </script>

@@ -36,9 +36,7 @@ const postStore = usePostStore()
 // 在刚创建组件时，pinia store 是空的，在组件挂载后获取到实际的文章数据
 // 通常用于执行初始化操作，例如从服务器获取数据、设置初始状态等。
 onMounted(async () => {
-  console.log("调用 onMounted")
   await postStore.fetchPosts()
-  console.log('Posts 结果:', postStore.posts)
 })
 
 // 计算属性：从所有文章中获取精选文章

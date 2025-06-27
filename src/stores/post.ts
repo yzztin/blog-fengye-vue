@@ -17,15 +17,13 @@ const usePostStore = defineStore('post', () => {
     const posts = ref<Post[]>([])
 
     // 获取文章列表
-    const fetchPosts = async () => {
+    const fetchPosts = async (isPage: boolean = false) => {
         // 获取所有文章文件名
-        const filenames = await getPostFiles()
-
-        console.log('filename', filenames)
+        const filenames = await getPostFiles(isPage)
 
         // 读取并解析每个文章文件
         const postPromises = filenames.map(async (filename) => {
-            const content = await readPostFile(filename)
+            const content = await readPostFile(filename, isPage)
             return parseMarkdown(content)
         })
 
@@ -42,8 +40,15 @@ const usePostStore = defineStore('post', () => {
                 title = title.slice(0, 10) + '*';
             }
 
+            let id
+
             // 生成 ID
-            const id = `${dataForId}-${title}`;
+            if (isPage) {
+                id = post.id
+
+            } else {
+                id = `${dataForId}-${title}`;
+            }
 
             // 计算字数和阅读时间（如果 parseMarkdown 中没有计算的话）
             const wordCount = post.wordCount || (post.content?.split(/\s+/).length || 0);

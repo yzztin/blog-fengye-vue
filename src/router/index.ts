@@ -18,6 +18,12 @@ const router = createRouter({
           meta: { title: '' },
         },
         {
+          path: 'about',
+          name: 'about',
+          component: () => import('@/views/About.vue'),
+          meta: { title: 'About me' },
+        },
+        {
           path: 'archives',
           name: 'archives',
           component: () => import('@/views/Archives.vue'),

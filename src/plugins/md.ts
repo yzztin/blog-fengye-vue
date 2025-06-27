@@ -76,6 +76,7 @@ export function parseMarkdown(content: string): Post {
     const readTime = Math.ceil(wordCount / 400)
 
     return {
+        id: frontMatter.id || '',
         title: frontMatter.title || 'no title',
         date: frontMatter.date ? new Date(frontMatter.date) : new Date(),
         updated: frontMatter.updated ? new Date(frontMatter.updated) : undefined,
@@ -92,16 +93,33 @@ export function parseMarkdown(content: string): Post {
     }
 }
 
-/**
- * 获取所有文章文件
- */
-export async function getPostFiles(): Promise<string[]> {
+async function getPathModules(isPage: boolean = false) {
     // 使用 Vite 的 import.meta.glob 动态导入
-    const modules = import.meta.glob('/src/assets/_posts/*.md', {
+    // import.meta.glob() 是 构建时静态分析 的语法，要求写死路径模式
+    const postModules = import.meta.glob('/src/assets/_posts/*.md', {
         query: '?raw',
         import: 'default',
         eager: false
     })
+
+    const pageModules = import.meta.glob('/src/assets/_pages/*.md', {
+        query: '?raw',
+        import: 'default',
+        eager: false
+    })
+
+    const modules = isPage ? pageModules : postModules
+    const mdPath = isPage ? '/src/assets/_pages/*.md' : '/src/assets/_posts/*.md'
+
+    return { mdPath, modules }
+}
+
+/**
+ * 获取所有文章文件
+ */
+export async function getPostFiles(isPage: boolean = false): Promise<string[]> {
+
+    const modules = (await getPathModules(isPage)).modules
 
     return Object.keys(modules).map(path => {
         const filename = path.split('/').pop() || ''
@@ -112,15 +130,12 @@ export async function getPostFiles(): Promise<string[]> {
 /**
  * 读取单个文章文件
  */
-export async function readPostFile(filename: string): Promise<string> {
+export async function readPostFile(filename: string, isPage: boolean = false): Promise<string> {
     try {
-        const modules = import.meta.glob('/src/assets/_posts/*.md', {
-            query: '?raw',
-            import: 'default',
-            eager: false
-        })
+        const pathModules = await getPathModules(isPage)
 
-        const path = `/src/assets/_posts/${filename}`
+        const path = pathModules.mdPath.replace('*.md', filename)
+        const modules = pathModules.modules
         const loader = modules[path]
 
         if (!loader) {
