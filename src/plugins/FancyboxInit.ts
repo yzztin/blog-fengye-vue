@@ -6,7 +6,7 @@ export function useFancybox(sourceRef: () => string) {
     watch(sourceRef, async () => {
         await nextTick() // 等待 DOM 更新
 
-        document.querySelectorAll('.post-content').forEach((content, index) => {
+        document.querySelectorAll('.post-content').forEach((content) => {
             content.querySelectorAll('img').forEach(img => {
                 const parent = img.parentElement
                 if (parent?.classList.contains('fancybox-img') || parent?.tagName.toLowerCase() === 'a') return

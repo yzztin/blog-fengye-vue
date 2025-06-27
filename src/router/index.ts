@@ -49,22 +49,12 @@ const router = createRouter({
 
       ]
     },
-    {
-      path: '/clock',
-      beforeEnter: (to, from, next) => {
-        // 使用原生跳转
-        window.location.href = '/clock.html'
-      },
-      component: {
-        template: '<div></div>'  // 空组件占位，避免类型检查报错
-      }
-    }
   ]
 })
 
 const updateTitlePaths = ['archives', 'categories', 'tags', 'post']
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   // 如果 path 在 updateTitlePaths 内，就更新标题
   const currentPath = to.path.replace(/^\//, '')
   if (updateTitlePaths.includes(currentPath)) {

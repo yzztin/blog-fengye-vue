@@ -1,7 +1,7 @@
 ## 使用 vue3 重写的 fengye 主题
 主要目的是学习 vue3 编程，用到的技术：
 - vue3 + TypeScript  组合式 api
-- vue router 路由管理
+- vue router  路由管理
 - Tailwind CSS  样式框架
 - Pinia  状态管理
 - pnpm  依赖管理
@@ -21,8 +21,14 @@
 
 
 ## 使用
-- 安装依赖：`pnpm i`
+- 使用脚手架创建项目：`pnpm create vite@latest blog-fengye-vue --template vue-ts`
+- 安装依赖：`pnpm install`
 - 启动项目：`pnpm run dev`
+- 构建项目：
+  - 生成静态资源文件：`pnpm run build`
+  - 可本地 web 服务器启动：`python -m http.server --directory dist`
+- 将生成的静态资源文件 `./dist` 目录下的内容推送到 github pages 指定的分支下
+  - 执行 `pnpm run deploy` 会在把 `./dist` 目录的内容推送到当前代码仓库的 `gh-pages` 分支
 
 
 ## vscode 插件
@@ -42,7 +48,7 @@
 - Vue 3 Snippets
 
 
-## Time Line（PRD）
+## Time Line
 - 2025.05.29 - 2025.06.05 学习和项目基本框架
 
 - 2025.06.09-15
@@ -51,5 +57,13 @@
 3. 文章字数统计、标签、分类显示、创建时间、更新时间
 
 - 2025.6.23-30
-1. 文章创建命令
+1. 文章创建命令（❌）
 2. 文章显示效果（md、代码块等等）
+
+
+## All Thanks To Our Contributors
+- [claude.ai](https://claude.ai/)
+- [chatgpt](https://chatgpt.com/)
+- [kimi](https://www.kimi.com/)
+- [cursor](https://www.cursor.com/)
+- [copilot](https://github.com/copilot)

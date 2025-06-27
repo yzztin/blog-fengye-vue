@@ -35,10 +35,11 @@ export default defineComponent({
             script.async = true
             document.head.appendChild(script)
         })
+
+        // 显式引用 Icon 组件，避免 TypeScript 报错
+        return { Icon }
     }
 })
 </script>
 
-<style scoped>
-/* 如果需要自定义样式可以在这里添加 */
-</style>
+<style scoped></style>

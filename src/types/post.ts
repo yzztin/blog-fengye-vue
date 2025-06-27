@@ -1,6 +1,6 @@
 // 导出 Post 接口供其他文件使用 - 保持与原有结构一致
 export interface Post {
-    id: string
+    id?: string
     title: string
     date: Date
     excerpt?: string

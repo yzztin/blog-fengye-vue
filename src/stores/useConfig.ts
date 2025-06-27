@@ -59,11 +59,6 @@ const useHeaderStore = defineStore('header', {
         name: 'Tags',
         icon: 'mingcute:tag-2-fill'
       },
-      {
-        path: '/clock',
-        name: '',
-        icon: 'mingcute:time-fill'
-      }
     ]
   })
 })
