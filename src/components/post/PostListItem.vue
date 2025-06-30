@@ -75,7 +75,7 @@ import { useHeaderStore } from '@/stores/useConfig'
 
 const headerStore = useHeaderStore()
 
-const props = defineProps<{
+defineProps<{
     post: Post
 }>()
 
