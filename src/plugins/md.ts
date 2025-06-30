@@ -118,6 +118,7 @@ async function getPathModules(isPage: boolean = false) {
  * 获取所有文章文件
  */
 export async function getPostFiles(isPage: boolean = false): Promise<string[]> {
+    console.log("执行获取文章文件名函数 getPostFiles")
 
     const modules = (await getPathModules(isPage)).modules
 
@@ -131,6 +132,8 @@ export async function getPostFiles(isPage: boolean = false): Promise<string[]> {
  * 读取单个文章文件
  */
 export async function readPostFile(filename: string, isPage: boolean = false): Promise<string> {
+    console.log("执行解析文章文件函数 readPostFile")
+
     try {
         const pathModules = await getPathModules(isPage)
 

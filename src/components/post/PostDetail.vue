@@ -145,9 +145,12 @@ watch(() => route.params.archive, async (newId) => {
 onMounted(async () => {
     const archiveId = route.params.archive
 
-    if (postStore.posts.length === 0) {
-        await postStore.fetchPosts(props.isPage)
-    }
+    // TODO FIXME: 每次都调用获取文件名和解析文章，可以尝试优化，不做重复解析。
+    await postStore.fetchPosts(props.isPage)
+
+    // if (postStore.posts.length === 0) {
+    //     await postStore.fetchPosts(props.isPage)
+    // }
 
     if (props.isPage) {
         post.value = postStore.getPostById(props.pageId as string) ?? createEmptyPost()
