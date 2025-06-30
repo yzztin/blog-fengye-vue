@@ -6,7 +6,7 @@
     <div class="post-container px-2 py-2 flex flex-col gap-3">
         <div class="flex flex-row items-center gap-4 max-h-36">
             <!-- 文章缩略图 -->
-            <router-link v-if="post.thumbnail" :to="`/archives/${post.id}`"
+            <router-link v-if="post.thumbnail" :to="`/posts/${post.id}`"
                 class="h-full min-w-16 max-w-36 sm:max-w-48">
                 <img class="rounded-md object-cover transition-all hover:scale-105 hover:shadow-md"
                     :src="post.thumbnail" :alt="post.thumbnail_alt" />
@@ -14,7 +14,7 @@
 
             <div class="flex flex-col gap-1">
                 <!-- 文章标题 -->
-                <router-link :to="`/archives/${post.id}`">
+                <router-link :to="`/posts/${post.id}`">
                     <h2
                         class="text-[var(--c-80)] font-bold text-xl hover:text-[var(--c-theme)] transition-all hover:underline">
                         {{ post.title }}

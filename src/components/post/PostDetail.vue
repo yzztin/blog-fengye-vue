@@ -72,7 +72,7 @@
         <div class="flex justify-between mt-4 pt-4 border-t border-[var(--c-sep)] text-sm gap-2 text-[var(--c-50)]">
             <div class="flex-1">
                 <div v-if="prevPost" class="max-w-fit">
-                    <router-link :to="`/archives/${prevPost.id}`"
+                    <router-link :to="`/posts/${prevPost.id}`"
                         class="transition-all flex justify-center hover:-translate-x-1 hover:text-[var(--c-80)]">
                         <Icon width="20" icon="mingcute:left-fill" data-inline="false" />
                         {{ prevPost.title }}
@@ -82,7 +82,7 @@
 
             <div class="flex-1 text-right">
                 <div v-if="nextPost" class="max-w-fit ml-auto">
-                    <router-link :to="`/archives/${nextPost.id}`"
+                    <router-link :to="`/posts/${nextPost.id}`"
                         class="flex justify-center hover:translate-x-1 transition-transform hover:text-[var(--c-100)]">
                         {{ nextPost.title }}
                         <Icon width="20" icon="mingcute:right-fill" data-inline="false" />
@@ -129,8 +129,8 @@ const nextPost = ref<Post | null>(null)
 
 useFancybox(() => post.value.content)
 
-// 监听 route.params.archive 的变化，并在变化时重新加载对应的文章数据
-watch(() => route.params.archive, async (newId) => {
+// 监听 route.params.post 的变化，并在变化时重新加载对应的文章数据
+watch(() => route.params.post, async (newId) => {
     if (!newId) return
 
     const currentPost = postStore.getPostById(newId as string) ?? createEmptyPost()
@@ -143,7 +143,7 @@ watch(() => route.params.archive, async (newId) => {
 
 // 通过挂载组件获取数据，如果没有拿到对应的数据，给出定一个默认的数据值
 onMounted(async () => {
-    const archiveId = route.params.archive
+    const postId = route.params.post
 
     // TODO FIXME: 每次都调用获取文件名和解析文章，可以尝试优化，不做重复解析。
     await postStore.fetchPosts(props.isPage)
@@ -155,14 +155,14 @@ onMounted(async () => {
     if (props.isPage) {
         post.value = postStore.getPostById(props.pageId as string) ?? createEmptyPost()
     } else {
-        post.value = postStore.getPostById(archiveId as string) ?? createEmptyPost()
+        post.value = postStore.getPostById(postId as string) ?? createEmptyPost()
     }
 
     // 更改标题
     usePageTitleStore().updateTitle(post.value.title)
 
     // 查找当前 post 在列表中的位置
-    const index = postStore.posts.findIndex(p => p.id === archiveId)
+    const index = postStore.posts.findIndex(p => p.id === postId)
 
     if (index > 0) {
         prevPost.value = postStore.posts[index - 1]

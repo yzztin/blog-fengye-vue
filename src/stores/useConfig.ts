@@ -45,8 +45,8 @@ const useHeaderStore = defineStore('header', {
   state: (): HeaderState => ({
     navItems: [
       {
-        path: '/archives',
-        name: 'Archives',
+        path: '/posts',
+        name: 'Posts',
         icon: 'mingcute:inbox-fill'
       },
       {

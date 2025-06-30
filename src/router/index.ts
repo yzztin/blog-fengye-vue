@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import DefaultLayout from '@/components/DefaultLayout.vue'
 import Home from '@/views/Home.vue'
 import { usePageTitleStore } from '@/stores/pageTitle'
 
@@ -24,15 +24,15 @@ const router = createRouter({
           meta: { title: 'About me' },
         },
         {
-          path: 'archives',
-          name: 'archives',
-          component: () => import('@/views/Archives.vue'),
-          meta: { title: 'Archive' },
+          path: 'posts',
+          name: 'posts',
+          component: () => import('@/views/Posts.vue'),
+          meta: { title: 'Post' },
         },
         {
-          path: 'archives/:archive',
-          name: 'archive',
-          component: () => import('@/views/ArchiveDetail.vue'),
+          path: 'posts/:post',
+          name: 'post',
+          component: () => import('@/views/PostDetail.vue'),
         },
         {
           path: 'categories',
