@@ -8,15 +8,19 @@
 
 ### 项目结构
   ```
-  src/
-  ├── components/       # 通用组件
-  ├── layouts/          # 布局组件
-  ├── views/            # 页面组件
-  ├── assets/           # 静态资源
-  ├── styles/           # Tailwind 样式
-  ├── types/            # TypeScript 类型定义
-  ├── composables/      # 组合式函数
-  └── router/           # 路由配置
+  ├── src
+  │   ├── App.vue         # 入口组件
+  │   ├── assets          # 文章文件等资源
+  │   ├── components      # 具体的组件
+  │   ├── composables     # 可组合函数
+  │   ├── main.ts         # 入口代码
+  │   ├── plugins         # 工具插件等
+  │   ├── router          # 路由配置
+  │   ├── stores          # 状态管理
+  │   ├── styles          # css 样式
+  │   ├── types           # ts 类型定义
+  │   ├── views           # 页面组件
+  │   └── vite-env.d.ts   # 类型声明
   ```
 
 
@@ -29,6 +33,14 @@
   - 可本地 web 服务器启动：`python -m http.server --directory dist`
 - 将生成的静态资源文件 `./dist` 目录下的内容推送到 github pages 指定的分支下
   - 执行 `pnpm run deploy` 会在把 `./dist` 目录的内容推送到当前代码仓库的 `gh-pages` 分支
+
+**具体的使用过程示例：**
+1. 在 GitHub 上的个人特殊仓库 `<username>.github.io` 中导入完整的本仓库代码
+2. 安装项目依赖，尝试运行项目，确保页面正常
+3. 在 `src/assets/_posts` 下创建具体的文章，可参考 `./测速文章.md` 中的文章元数据
+4. 执行 `pnpm run build` 和 `pnpm run deploy`，此时当前仓库的 `gh-pages` 分支应该就是完整的本地刚刚生成的 `./dist` 文件夹下的内容
+5. 设置 GitHub 仓库的 `GitHub Pages` 为 `gh-pages`
+6. 访问 `https://<username>.github.io/`
 
 
 ## vscode 插件
