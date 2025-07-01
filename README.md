@@ -1,4 +1,4 @@
-## 使用 vue3 重写的 fengye 主题
+## 使用 vue3 重写的 [fengye](https://github.com/chen-yingfa/hexo-theme-fengye) 主题
 主要目的是学习 vue3 编程，用到的技术：
 - vue3 + TypeScript  组合式 api
 - vue router  路由管理
