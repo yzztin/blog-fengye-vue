@@ -32,7 +32,10 @@
   - 生成静态资源文件：`pnpm run build`
   - 可本地 web 服务器启动：`python -m http.server --directory dist`
 - 将生成的静态资源文件 `./dist` 目录下的内容推送到 github pages 指定的分支下
-  - 执行 `pnpm run deploy` 会在把 `./dist` 目录的内容推送到当前代码仓库的 `gh-pages` 分支
+  - 执行 `pnpm run deploy` 会在把 `./dist` 目录的内容推送到当前代码仓库的 `gh-pages` 分支（如果出现一直卡住的情况，可以尝试先创建一个名为 `gh-pages` 的分支再次执行）
+- 配置 Github Action 自动部署：
+  - 可参考 `.github/workflows/CICD.yml.example`，该文件需要处在指定 `push` 的同一分支
+  - 当工作流分支和部署的 `gh-pages` 分支是同一个仓库时，可以直接使用 `secrets.GITHUB_TOKEN `，需要在仓库设置中修改密钥权限：`Setting -> Actions General -> Workflow permissions -> Read and write permissions`
 
 **具体的使用过程示例：**
 1. 在 GitHub 上的个人特殊仓库 `<username>.github.io` 中导入完整的本仓库代码
