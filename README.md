@@ -89,3 +89,5 @@
 - 使用 `pnpm run build` 生成静态文件，再通过 `python -m http.server --directory dist` 启动 web 服务后，可以从网页的 `/` 根路径下正常访问 `/posts`，但是直接进入 `http://xxx/posts` 出现找不到页面的问题，当使用 `pnpm run dev` 进入页面时没有问题
   - 本质原因是使用 `vue router` 的 `createWebHistory()` 创建的是 `单页面应用（SPA）`，只有一个`index.html`文件，使用 `pnpm run dev` 开启的 web 服务是可以探测出这个是 `SPA` 应用的，会将未知路径比如 `/posts` 重新定向到 `index.html`，然后由 `vue router` 在前端处理这些路径。但是静态文件服务器只会寻找比如 `/posts/index.html` 这样的文件，找不到于是就返回无页面。
   - 此处会把`dist`的静态文件上传到 `gh-pages`，由于`gh-pages`服务器在找不到文件时会自动寻找和显示 `404.html` 的内容，因此，此处的解决办法是给一个特殊的 `404.html` （详见 ./pubilc/404.html）让其重定向到根目录的 `/index.html` 并保留路径地址，再重新跳转到对应的路径。
+
+- busuanzi 服务端 502 的问题导致网页加载很慢（浏览器页面的图标一直转圈）
