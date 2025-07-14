@@ -1,4 +1,6 @@
-<!-- 不蒜子，用以统计网页访问量 https://busuanzi.ibruce.info/ -->
+<!-- 不蒜子，用以统计网页访问量 https://busuanzi.ibruce.info/ 
+新的方案：https://github.com/EvanNotFound/vercount
+-->
 
 <template>
     <div v-if="enabled" class="flex flex-col items-center mb-2">

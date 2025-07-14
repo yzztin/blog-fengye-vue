@@ -30,7 +30,7 @@
 - 启动项目：`pnpm run dev`
 - 构建项目：
   - 生成静态资源文件：`pnpm run build`
-  - 可本地 web 服务器启动：`python -m http.server --directory dist`
+  - 可本地 web 服务器启动：安装依赖：`pnpm install -g serve`，随后执行：`serve -s dist`
 - 将生成的静态资源文件 `./dist` 目录下的内容推送到 github pages 指定的分支下
   - 执行 `pnpm run deploy` 会在把 `./dist` 目录的内容推送到当前代码仓库的 `gh-pages` 分支（如果出现一直卡住的情况，可以尝试先创建一个名为 `gh-pages` 的分支再次执行）
 - 配置 Github Action 自动部署：
@@ -83,3 +83,9 @@
 - [kimi](https://www.kimi.com/)
 - [cursor](https://www.cursor.com/)
 - [copilot](https://github.com/copilot)
+
+
+## 问题记录
+- 使用 `pnpm run build` 生成静态文件，再通过 `python -m http.server --directory dist` 启动 web 服务后，可以从网页的 `/` 根路径下正常访问 `/posts`，但是直接进入 `http://xxx/posts` 出现找不到页面的问题，当使用 `pnpm run dev` 进入页面时没有问题
+  - 本质原因是使用 `vue router` 的 `createWebHistory()` 创建的是 `单页面应用（SPA）`，只有一个`index.html`文件，使用 `pnpm run dev` 开启的 web 服务是可以探测出这个是 `SPA` 应用的，会将未知路径比如 `/posts` 重新定向到 `index.html`，然后由 `vue router` 在前端处理这些路径。但是静态文件服务器只会寻找比如 `/posts/index.html` 这样的文件，找不到于是就返回无页面。
+  - 此处会把`dist`的静态文件上传到 `gh-pages`，由于`gh-pages`服务器在找不到文件时会自动寻找和显示 `404.html` 的内容，因此，此处的解决办法是给一个特殊的 `404.html` （详见 ./pubilc/404.html）让其重定向到根目录的 `/index.html` 并保留路径地址，再重新跳转到对应的路径。
