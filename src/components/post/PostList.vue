@@ -16,7 +16,8 @@
             <div v-if="shouldShowYear(post)" class="relative pointer-events-none h-[30px]">
                 <div class="absolute -top-6 w-[100%] text-center">
                     <p
-                        class="inline-block translate-x-20 text-clip overflow-hidden text-9xl font-extrabold text-[var(--c-theme)] opacity-10 dark:opacity-20">
+                        class="inline-block text-clip overflow-hidden text-9xl font-extrabold text-[var(--c-theme)] opacity-10 dark:opacity-20">
+                        <!-- class="inline-block translate-x-20 text-clip overflow-hidden text-9xl font-extrabold text-[var(--c-theme)] opacity-10 dark:opacity-20"> -->
                         {{ getYear(post.date) }}
                     </p>
                 </div>
