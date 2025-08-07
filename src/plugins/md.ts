@@ -96,20 +96,20 @@ export function parseMarkdown(content: string): Post {
 async function getPathModules(isPage: boolean = false) {
     // 使用 Vite 的 import.meta.glob 动态导入
     // import.meta.glob() 是 构建时静态分析 的语法，要求写死路径模式
-    const postModules = import.meta.glob('/src/assets/_posts/*.md', {
+    const postModules = import.meta.glob('/public/posts/*.md', {
         query: '?raw',
         import: 'default',
         eager: false
     })
 
-    const pageModules = import.meta.glob('/src/assets/_pages/*.md', {
+    const pageModules = import.meta.glob('/public/pages/*.md', {
         query: '?raw',
         import: 'default',
         eager: false
     })
 
     const modules = isPage ? pageModules : postModules
-    const mdPath = isPage ? '/src/assets/_pages/*.md' : '/src/assets/_posts/*.md'
+    const mdPath = isPage ? '/public/pages/*.md' : '/public/posts/*.md'
 
     return { mdPath, modules }
 }

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import portraitImage from '@/assets/images/portrait.jpg'
+// import portraitImage from '@/assets/images/portrait.jpg'
 
 interface BaseConfig {
   title: string
@@ -26,7 +26,7 @@ interface HeaderState {
 const useBaseConfig = defineStore('baseConfig', {
   state: (): BaseConfig => ({
     title: "Yzz's Blog",
-    portrait: portraitImage,
+    portrait: '/images/portrait.jpg',
     subtitle: '',
     location: 'Beijing, China',
     cvPath: '',

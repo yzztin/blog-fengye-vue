@@ -40,7 +40,7 @@
 **具体的使用过程示例：**
 1. 在 GitHub 上的个人特殊仓库 `<username>.github.io` 中导入完整的本仓库代码
 2. 安装项目依赖，尝试运行项目，确保页面正常
-3. 在 `src/assets/_posts` 下创建具体的文章，可参考 `./测速文章.md` 中的文章元数据
+3. 在 `public/posts` 下创建具体的文章，可参考 `./测速文章.md` 中的文章元数据
 4. 执行 `pnpm run build` 和 `pnpm run deploy`，此时当前仓库的 `gh-pages` 分支应该就是完整的本地刚刚生成的 `./dist` 文件夹下的内容
 5. 设置 GitHub 仓库的 `GitHub Pages` 为 `gh-pages`
 6. 访问 `https://<username>.github.io/`
