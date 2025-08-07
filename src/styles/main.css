@@ -47,6 +47,27 @@
     @apply m-0;
     color: var(--c-50);
   }
+  .post-content code::before,
+  .post-content code::after {
+    content: none;
+    /* 禁用前后插入的内容 */
+  }
+
+  .post-content pre,
+  .post-content code {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .post-content .fancybox-img img {
+    @apply mb-2 block mx-auto rounded max-w-full h-auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .post-content .fancybox-title,
+  .post-content .fancybox-alt {
+    @apply text-sm text-center text-[var(--c-50)] m-0 p-0 font-normal w-full block;
+  }
 
   /* 多行代码块的颜色 */
   .prose pre {
@@ -86,14 +107,6 @@
 
   .post-container .footnote-ref {
     display: none;
-  }
-
-  .post-content .fancybox-img img {
-    @apply mb-2 block mx-auto rounded max-w-full h-auto;
-  }
-  .post-content .fancybox-title,
-  .post-content .fancybox-alt {
-    @apply text-sm text-center text-[var(--c-50)] m-0 p-0 font-normal w-full block;
   }
 
   .back-to-top {
