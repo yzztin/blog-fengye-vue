@@ -1,11 +1,11 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
+import {createPinia} from 'pinia'
+import {Fancybox} from "@fancyapps/ui"
+import '@fancyapps/ui/dist/fancybox/fancybox.css'
 import App from './App.vue'
 import router from './router'
-import { createPinia } from 'pinia'
 import './styles/main.css'
-import { initGoogleAnalytics } from './plugins/GoogleAnalytics';
-import { Fancybox } from "@fancyapps/ui"
-import '@fancyapps/ui/dist/fancybox/fancybox.css'
+import {initGoogleAnalytics} from './plugins/GoogleAnalytics';
 
 // Google Analytics 初始化
 const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID
