@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-// import portraitImage from '@/assets/images/portrait.jpg'
+// import portraitImage from '@/assets/images/portrait.jpg'  // 把图像文件作为组件使用
 
 interface BaseConfig {
   title: string

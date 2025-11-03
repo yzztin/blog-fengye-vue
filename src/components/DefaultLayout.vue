@@ -2,7 +2,11 @@
   <div class="min-h-screen flex flex-col bg-[var(--c-0)] text-[var(--c-80)]">
     <Header />
     <main class="flex-grow">
-      <!-- 在 父路由 中显示 子路由 Home 的内容 -->
+      <!--
+      在 “父路由” 中显示 “子路由” 的内容，如 ./src/views/Home.vue
+      这类似一个空置槽位，会自动把定义的 “子路由” 组件显示在这里
+      在 ./src/router/index.ts 中定义了 “子路由”
+      -->
       <router-view />
     </main>
     <Footer />

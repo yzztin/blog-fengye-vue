@@ -6,6 +6,8 @@ import path from 'path'
 export default defineConfig({
   plugins: [vue()],
   css: {
+    // postcss 是一个 css 转换器，tailwindcss 是 postcss 的一个插件，
+    // postcss 可以识别 tailwindcss 语法并将其转为浏览器可以读取的原生 css 样式
     postcss: './postcss.config.js'
   },
   resolve: {

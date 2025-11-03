@@ -1,4 +1,4 @@
-// 导出 Post 接口供其他文件使用 - 保持与原有结构一致
+// 定义数据模型接口
 export interface Post {
     id?: string
     title: string

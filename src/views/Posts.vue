@@ -13,40 +13,35 @@ import Paginator from '@/components/Paginator.vue';
 import type { PageInfo } from '@/types/pageInfo'
 import { usePostStore } from '@/stores/post'
 
-// 当前页码
-const currentPage = ref(1);
+// ref 响应式对象，当值被修改时，任何依赖它的组件也会自动重新渲染
+const currentPage = ref(1);  // 当前页码
 
-// 每页显示的文章数量
-const pageSize = 10;
+const pageSize = 10;  // 每页显示的文章数量
 
 const postStore = usePostStore()
 
-// 是否分页
-const isPaginator = computed(() => postStore.posts.length > pageSize);
+// computed 计算属性函数，返回一个只读的 ref 对象，当依赖的响应式对象变化时会自动重新计算
+const isPaginator = computed(() => postStore.posts.length > pageSize);  // 是否需要分页
 
-// 当前页的文章
-const currentPagePosts = computed(() => {
+const currentPagePosts = computed(() => {  // 当前页的文章
     const start = (currentPage.value - 1) * pageSize;
     const end = start + pageSize;
     return postStore.posts.slice(start, end);
 });
 
-// 分页信息
-const pageInfo = computed<PageInfo>(() => ({
+const pageInfo = computed<PageInfo>(() => ({  // 分页信息
     current: currentPage.value,
     total: Math.ceil(postStore.posts.length / pageSize),
 }));
 
-// 更新当前页码
-const updatePage = (newPage: number) => {
+const updatePage = (newPage: number) => {  // 更新当前页码
     currentPage.value = newPage;
 };
 
+// onMounted 生命周期钩子函数，在组件挂载后执行代码
 onMounted(async () => {
     await postStore.fetchPosts()
 })
 
 </script>
-
-
 <style scoped></style>

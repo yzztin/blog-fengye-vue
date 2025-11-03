@@ -1,11 +1,11 @@
-import {createApp} from 'vue'
-import {createPinia} from 'pinia'
-import {Fancybox} from "@fancyapps/ui"
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import { Fancybox } from "@fancyapps/ui"
 import '@fancyapps/ui/dist/fancybox/fancybox.css'
 import App from './App.vue'
 import router from './router'
-import './styles/main.css'
-import {initGoogleAnalytics} from './plugins/GoogleAnalytics';
+import './styles/main.css'  // 全局 css 样式文件，直接导入即可，不需要显式调用
+import { initGoogleAnalytics } from './plugins/GoogleAnalytics';
 
 // Google Analytics 初始化
 const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID

@@ -28,6 +28,7 @@ export function useTheme() {
     // 监听 isDark 的变化，同步更新 documentElement 的类
     watch(isDark, (newValue) => {
         if (newValue) {
+            // 为整个 html 的根标签 <html> 签添加了一个名为 dark 的 CSS 类，得到 <html class="dark">
             document.documentElement.classList.add('dark')
         } else {
             document.documentElement.classList.remove('dark')

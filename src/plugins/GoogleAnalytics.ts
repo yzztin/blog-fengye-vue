@@ -3,10 +3,7 @@
  * Google Analytics 初始化模块，分析网站访问数据
  */
 
-
-
 let isGtagInitialized = false
-
 
 /**
  * 初始化 Google Analytics

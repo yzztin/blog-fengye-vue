@@ -1,4 +1,9 @@
-/* 变量依然建议单独放在 variables.css 并在这里导入 */
+/*
+  css 样式文件，需要在 main.ts 中导入
+  这里使用的是 tailwindcss 框架，并在 ./variables.css 中定义了样式变量
+ */
+
+// 导入定义的样式变量属性，通过 var(xxx) 使用
 @import "./variables.css";
 
 @tailwind base;
