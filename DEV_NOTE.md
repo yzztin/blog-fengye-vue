@@ -25,3 +25,61 @@
 9. ./src/styles 这里是 tailwindcss 用到的样式，比如颜色、自定义的“标签class”的样式等
 10. ./src/types 存放项目中需要的数据模型定义，ts 代码的 interface 接口数据模型
 11. ./src/views 存放“页面级组件”，也就是路由到不同路径时展示的页面内容，比如 “首页、文章详情页、登录注册页、用户个人中心页” 等等，这些代码大多是使用了 ./src/components 里写的组件，再额外加一些页面需要的某些内容，文件夹一般也会命名为 pages
+
+
+## 相关技术
+
+- vue3 + TypeScript 组合式 api
+- vue router 路由管理
+- Tailwind CSS 样式框架
+- Pinia 状态管理
+- pnpm 依赖管理
+
+## 项目结构
+
+```
+├── src
+│   ├── main.ts         # vue 应用实例的入口代码
+│   ├── App.vue         # 入口组件
+│   ├── components      # 具体的组件
+│   ├── composables     # 可组合函数
+│   ├── assets          # 资源
+│   ├── plugins         # 工具插件等
+│   ├── router          # 路由配置
+│   ├── stores          # 状态管理
+│   ├── styles          # css 样式
+│   ├── types           # ts 类型定义
+│   ├── views           # 页面组件
+│   └── vite-env.d.ts   # 类型声明
+├── index.html          # 浏览器加载的 html 入口文件
+```
+
+## vscode 插件
+
+- JavaScript Debugger
+- Auto Close Tag
+- Auto Rename Tag
+- Color Highlight
+- CSS Peek
+- ESLint
+- HTML CSS Support
+- indent-rainbow
+- Live Server
+- Path Intellisense
+- PostCSS Language Support
+- Tailwind CSS IntelliSense
+- Vue - Official
+- Vue 3 Snippets
+
+## 问题记录
+
+- 使用 `pnpm run build` 生成静态文件，再通过 `python -m http.server --directory dist` 启动 web 服务后，可以从网页的 `/`
+  根路径下正常访问 `/posts`，但是直接进入 `http://xxx/posts` 出现找不到页面的问题，当使用 `pnpm run dev` 进入页面时没有问题
+    - 本质原因是使用 `vue router` 的 `createWebHistory()` 创建的是 `单页面应用（SPA）`，只有一个`index.html`文件，使用
+      `pnpm run dev` 开启的 web 服务是可以探测出这个是 `SPA` 应用的，会将未知路径比如 `/posts` 重新定向到 `index.html`
+      ，然后由 `vue router` 在前端处理这些路径。但是静态文件服务器只会寻找比如 `/posts/index.html` 这样的文件，找不到于是就返回无页面。
+    - 此处会把`dist`的静态文件上传到 `gh-pages`，由于`gh-pages`服务器在找不到文件时会自动寻找和显示 `404.html`
+      的内容，因此，此处的解决办法是给一个特殊的 `404.html` （详见 ./pubilc/404.html）让其重定向到根目录的 `/index.html`
+      并保留路径地址，再重新跳转到对应的路径。
+
+- busuanzi 服务端 502 的问题导致网页加载很慢（浏览器页面的图标一直转圈）
