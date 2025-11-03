@@ -10,7 +10,7 @@ export default defineConfig({
   },
   resolve: {
     // 设置路径别名，这表示使用符号 “@” 来代替项目根目录下的 src 目录路径
-    alias: {ßß
+    alias: {
       '@': path.resolve(__dirname, './src')  // resolve() 表示合并目录得到一个绝对路径
     },
   },
@@ -19,8 +19,30 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['@/assets/_posts/*.md']
   },
+  // 配置启动 web 服务器的选项
   server: {
     host: '0.0.0.0',
     port: 3000
   }
 })
+
+
+/**
+ * 要想在 vite 自动加载 .env 之前就使用环境变量，需要手动加载 .env 文件
+ * 参考如下代码
+ */
+// import { loadEnv } from 'vite'
+
+// export default ({ mode }: { mode: string }) => {
+//   const env = loadEnv(mode, process.cwd())
+//   console.log(env)
+
+//   return defineConfig({
+//     base: env.VITE_BASE_PATH || '/', // 静态资源前缀
+//     server: {
+//       host: env.VITE_HOST,
+//       port: Number(env.VITE_PORT),       // 指定端口
+//       strictPort: true   // 如果端口被占用就报错，不自动换端口
+//     }
+//   })
+// }

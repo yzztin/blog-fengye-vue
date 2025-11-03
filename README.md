@@ -1,4 +1,4 @@
-<mark>开发详情参考：[DEV_NOTE](./DEV_NOTE.md)</mark>
+<mark>开发笔记可参考：[DEV_NOTE](./DEV_NOTE.md)</mark>
 
 ## 使用 vue3 重写的 [fengye](https://github.com/chen-yingfa/hexo-theme-fengye) 主题
 

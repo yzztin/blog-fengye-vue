@@ -18,31 +18,56 @@ interface NavItem {
   showName?: boolean
 }
 
-interface HeaderState {
-  navItems: NavItem[]
+interface SocialLink {
+  name: string
+  url: string
+  icon: string
 }
-
 
 const useBaseConfig = defineStore('baseConfig', {
   state: (): BaseConfig => ({
-    title: "Yzz's Blog",
-    portrait: '/images/portrait.jpg',
-    subtitle: '',
-    location: 'Beijing, China',
-    cvPath: '',
-    cvLastUpdateDate: '2025-04-07',
-    description: 'A blog for note, thinking and life.'
+    title: import.meta.env.VITE_TITLE,
+    subtitle: import.meta.env.VITE_SUBTITLE,
+    portrait: import.meta.env.VITE_PORTRAIT,
+    location: import.meta.env.VITE_LOCATION,
+    cvPath: import.meta.env.VITE_CV_PATH,
+    cvLastUpdateDate: import.meta.env.VITE_CV_LAST_UPDATE_DATE,
+    description: import.meta.env.VITE_DESCRIPTION
   }),
   actions: {
     descriptionClean() {
       return this.description.replace(/(?:\r\n|\r|\n)/g, '<br>')
     }
   }
-}
-)
+})
+
+// 社交链接配置
+const useSocialLink = defineStore('socialLink', {
+  // 这里存放的值是一个 object 对象 { links: [] }
+  // 如果直接通过 pinia 存放一个列表 []，那么取值的时候实际上拿到的是 pinia store 对象，而不是单纯的数组列表，这会影响 v-for 时的样式
+  state: (): { links: SocialLink[] } => ({
+    links: [
+      {
+        name: 'GitHub',
+        url: import.meta.env.VITE_GITHUB_URL,
+        icon: 'mingcute:github-fill'
+      },
+      {
+        name: 'Email',
+        url: `mailto:${import.meta.env.VITE_EMAIL}`,
+        icon: 'mdi:email'
+      },
+      {
+        name: 'Twitter',
+        url: import.meta.env.VITE_TWITTER_URL,
+        icon: 'mingcute:social-x-fill'
+      },
+    ]
+  })
+})
 
 const useHeaderStore = defineStore('header', {
-  state: (): HeaderState => ({
+  state: (): { navItems: NavItem[] } => ({
     navItems: [
       {
         path: '/posts',
@@ -65,5 +90,6 @@ const useHeaderStore = defineStore('header', {
 
 export {
   useBaseConfig,
-  useHeaderStore
+  useHeaderStore,
+  useSocialLink
 }
