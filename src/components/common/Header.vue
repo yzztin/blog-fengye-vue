@@ -2,7 +2,7 @@
     <!--
         header 标签这里设置了 text-[var(--c-80)] 指定文本颜色为灰色，
         但是同时， src/style/main.css 中也有设置全局 a 标签的文本颜色为蓝色，
-        在 css 选择器的优先级规则中，header 是文本颜色样式对于 header 下的 <a> 标签来说是 “继承样式”，
+        在 css 选择器的优先级规则中，header 设置的文本颜色样式对于 header 下的 <a> 标签来说是 “继承样式”，
         而 main.css 中的是对于 <a> 的直接选择器，并且使用了  @layer base，优先级高于继承样式
     -->
     <header class="

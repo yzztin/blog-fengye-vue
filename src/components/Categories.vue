@@ -64,6 +64,9 @@ const currentCategory = computed(() => {
     return '';
 })
 
+// watch 侦听器，侦听一个响应式属性，一旦发生变化就立刻执行函数
+// 这里侦听的是 currentCategory，如果发送变化就会执行定义的函数，并且会把变换后的 currentCategory 的值作为参数传递给函数
+// 也就说变化后的 currentCategory 值，就是 newVal 参数的值
 watch(currentCategory, (newVal) => {
     if (isCategoryPage.value && newVal) {
         usePageTitleStore().updateTitle(newVal)

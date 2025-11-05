@@ -52,6 +52,26 @@
 10. `./src/types` 存放项目中需要的数据模型定义，ts 代码的 interface 接口数据模型
 11. `./src/views` 存放“页面级组件”，也就是路由到不同路径时展示的页面内容，比如 “首页、文章详情页、登录注册页、用户个人中心页” 等等，这些代码大多是使用了 ./src/components 里写的组件，再额外加一些页面需要的某些内容，文件夹一般也会命名为 pages
 
+### vue3 方法特性代码实现和说明
+
+- vue app 入口实例对象，参考代码：`./src/main.ts ./src/App.vue`
+- router 路径与其组件，`./src/App.vue ./src/router/index.ts ./src/c/common/DefaultLayout.vue`
+- ref, computed, onMounted 响应式状态、计算属性、生命周期钩子函数，`./src/views/Posts.vue`
+- watch 侦听器，`./src/components/Categories.vue`
+- v-if, v-for 语法，`./src/components/common/SocialList.vue`
+- 自定义事件，`./src/components/Paginator.vue  ./src/views/Posts.vue`
+- pinia 全局状态管理，`./src/stores/pageTitle.ts`
+- 默认页面布局，其他页基于此布局展示，`./src/components/DefaultLayout.vue`
+- 切换暗黑主题，`./src/composables/useTheme.ts`
+- “回到顶部”按钮，自动隐藏和显示，`./src/components/common/BackToTop.vue`
+- tailwindcss 样式，`./src/style ./src/components/common/Header.vue`
+- 单篇文章页面, 目录、文本内容等，`./src/components/post/PostDetail.vue  ./src/components/post/TableOfContents.vue`
+- 一篇文章的文章块样式，文章列表页，是否显示年份背景，`./src/components/post/PostList.vue  ./src/components/post/PostListItem.vue`
+- 首页显示标识特色的文章，`./src/components/home/FeaturedPosts.vue`
+- 文章标签，`./src/components/post/PostTag.vue`
+- 文章列表分页，`./src/components/Paginator.vue  ./src/views/Posts.vue`
+- markdown 解析，`./src/plugins/md.ts  ./src/components/MarkdownRenderer.vue`
+
 
 ## 其他
 

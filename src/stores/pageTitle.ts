@@ -8,7 +8,7 @@ import { defineStore } from 'pinia';
 import { useBaseConfig } from '@/stores/useConfig'
 
 
-// 定义一个 store，唯一值是 pageTitle
+// 定义一个 store，其有一个唯一值标识 "pageTitle"
 export const usePageTitleStore = defineStore('pageTitle', {
 
     // state 存储具体的数据，最好始终返回的数据是 object 类型
